@@ -1,12 +1,10 @@
 ## Personal Portfolio
 
-### [Live Site](https://jsmasterypro.com)
+### This project is created by JavaScript Mastery and modified by Amir  
 
-![Portfolio Website](https://i.ibb.co/WgPMpts/image.png)
+![Portfolio Website](https://portfolio-rust-beta.vercel.app/) ![miroubagui.com](https://mirouibagui.com)
 
-This is a code repository for the corresponding video tutorial. Your portfolio is your resume and your business card.
-
-In this video, we will create a full Personal Development Portfolio. We're going to use React and Next.js.
+This is a code repository for my personal portfolio.
 
 Setup:
 - run ```npm i && npm start```
