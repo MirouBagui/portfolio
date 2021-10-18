@@ -7,25 +7,25 @@ import { Container, Div1, Div2, Div3, NavLink, SocialIcons } from './HeaderStyle
 
 const Header = () =>  (
   <Container>
-    <Div1>
+    <Div1 tabIndex="0">
       <Link href="/">
         <>
-          <DiCssdeck size="3rem" /> <span>Portfolio</span>
+          <DiCssdeck size="3rem" tabIndex="0"/> <span tabIndex="0">Portfolio</span>
         </>
       </Link>
     </Div1>
     <Div2>
-      <li>
-        <Link href="#projects">
-          <NavLink>Projects</NavLink>
+      <li tabIndex="0"  >
+        <Link href="#projects" >
+          <NavLink >Projects</NavLink>
         </Link>
       </li>
-      <li>
+      <li tabIndex="0">
         <Link href="#tech">
-          <NavLink>Technologies</NavLink>
+          <NavLink >Technologies</NavLink>
         </Link>
       </li>        
-      <li>
+      <li tabIndex="0">
         <Link href="#about">
           <NavLink>About</NavLink>
         </Link>

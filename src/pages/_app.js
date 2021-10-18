@@ -4,7 +4,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head >
-      <title>Welcome to my World</title>
+      <title>Bagui's Portfolio</title>
       </Head>
       <Theme>
         <Component {...pageProps} />
