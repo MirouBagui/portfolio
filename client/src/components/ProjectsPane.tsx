@@ -1,31 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { usePortfolioStore } from '../stores/portfolioStore'
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { usePortfolioStore } from '../stores/portfolioStore';
+import PromptLine from './PromptLine';
 
-export function ProjectsPane({ focused }: { focused?: boolean }) {
-  const { projects } = usePortfolioStore()
-  const [error, setError] = useState<string | null>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
+export function ProjectsPane({ focused }: { focused?: boolean; }) {
+  const { projects } = usePortfolioStore();
+  const [error, setError] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (focused && scrollRef.current) {
-      scrollRef.current.focus()
+      scrollRef.current.focus();
     }
-  }, [focused])
+  }, [focused]);
 
-  const promptLine = (
-    <div className="flex items-center gap-2 border-b border-white/10 pb-2">
-      <span className="text-green-400">visitor</span>
-      <span className="text-white/30">@</span>
-      <span className="text-[var(--color-accent)]">portfolio</span>
-      <span className="text-white/30">:</span>
-      <span className="text-cyan-400">~</span>
-      <span className="text-white/30">$</span>
-      <span className="ml-1 text-xs text-white/50">
-        ls -la ~/projects
-      </span>
-    </div>
-  )
 
   if (error) {
     return (
@@ -36,7 +24,7 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
         tabIndex={0}
         className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
       >
-        {promptLine}
+        <PromptLine command={"ls -la ~/connection"} />
         <div className="space-y-2 rounded border border-yellow-500/20 bg-yellow-500/[3%] p-3">
           <p className="text-xs text-yellow-400/80" role="alert">
             $ ls: connection refused
@@ -65,7 +53,7 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
           </div>
         )}
       </div>
-    )
+    );
   }
 
   if (projects.length === 0) {
@@ -77,7 +65,7 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
         tabIndex={0}
         className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
       >
-        {promptLine}
+        <PromptLine command={"ls -la ~/connection"} />
         <div className="flex flex-col items-center gap-2 py-8 text-center">
           <p className="font-mono text-sm text-white/40">
             <span className="text-green-400">$</span> ls: no entries yet
@@ -90,7 +78,7 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -101,12 +89,9 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
       tabIndex={0}
       className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
     >
-      {promptLine}
-
+      <PromptLine command={"ls -la ~/projects"} />
       <div className="space-y-1 text-xs text-white/30">
         <p>total {projects.length}</p>
-        <p>drwxr-xr-x 1 visitor portfolio 128 May 8 20:48 .</p>
-        <p>drwxr-xr-x 1 visitor portfolio 256 May 8 20:48 ..</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -138,5 +123,5 @@ export function ProjectsPane({ focused }: { focused?: boolean }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

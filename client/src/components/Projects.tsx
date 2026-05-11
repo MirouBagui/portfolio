@@ -1,37 +1,33 @@
-import { Link } from 'react-router-dom'
-import { useState, useMemo, type KeyboardEvent } from 'react'
-import { usePortfolioStore } from '../stores/portfolioStore'
+import { Link } from 'react-router-dom';
+import { useState, useMemo, type KeyboardEvent } from 'react';
+import { usePortfolioStore } from '../stores/portfolioStore';
 
 export function Projects() {
-  const { projects } = usePortfolioStore()
-  const [filter, setFilter] = useState('')
-  const [filterInput, setFilterInput] = useState('')
+  const { projects } = usePortfolioStore();
+  const [filter, setFilter] = useState('');
+  const [filterInput, setFilterInput] = useState('');
 
-  const allTags = useMemo(() => {
-    const set = new Set<string>()
-    for (const p of projects) p.tech?.forEach((t) => set.add(t))
-    return [...set].sort()
-  }, [projects])
+
 
   const filtered = useMemo(() => {
-    if (!filter) return projects
-    const lower = filter.toLowerCase()
+    if (!filter) return projects;
+    const lower = filter.toLowerCase();
     return projects.filter(
       (p) =>
         p.tech?.some((t) => t.toLowerCase().includes(lower)) ||
         p.title.toLowerCase().includes(lower),
-    )
-  }, [projects, filter])
+    );
+  }, [projects, filter]);
 
   const handleFilterKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      setFilter(filterInput.trim())
+      setFilter(filterInput.trim());
     }
     if (e.key === 'Escape') {
-      setFilterInput('')
-      setFilter('')
+      setFilterInput('');
+      setFilter('');
     }
-  }
+  };
 
   return (
     <section
@@ -61,8 +57,8 @@ export function Projects() {
         {filter && (
           <button
             onClick={() => {
-              setFilterInput('')
-              setFilter('')
+              setFilterInput('');
+              setFilter('');
             }}
             className="text-white/30 hover:text-white/60"
             aria-label="Clear filter"
@@ -71,24 +67,6 @@ export function Projects() {
           </button>
         )}
       </div>
-
-      {allTags.length > 0 && !filter && (
-        <div className="mb-6 flex flex-wrap items-center gap-1.5">
-          <span className="font-mono text-[10px] text-white/20">tags:</span>
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => {
-                setFilterInput(tag)
-                setFilter(tag)
-              }}
-              className="rounded bg-white/[5%] px-2 py-0.5 font-mono text-[11px] text-white/30 transition-colors hover:text-white/60"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      )}
 
       {filtered.length === 0 ? (
         <div className="font-mono text-center text-sm text-white/30">
@@ -99,8 +77,8 @@ export function Projects() {
           <p className="mb-1">ls: no entries match filter &quot;{filter}&quot;</p>
           <button
             onClick={() => {
-              setFilterInput('')
-              setFilter('')
+              setFilterInput('');
+              setFilter('');
             }}
             className="text-[var(--color-accent)] hover:underline"
           >
@@ -144,5 +122,5 @@ export function Projects() {
         </>
       )}
     </section>
-  )
+  );
 }

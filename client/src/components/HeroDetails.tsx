@@ -1,20 +1,8 @@
-import { useTypingEffect } from '../hooks/useTypingEffect'
-import { HeroScene } from './HeroScene'
-import { TerminalWindow } from './TerminalWindow'
-import { Code, Globe, Mail, ArrowDown } from 'lucide-react'
-
-const ROLES = [
-  'Full Stack Developer',
-  'UI/UX Designer',
-  'Open Source Enthusiast',
-  'Problem Solver',
-]
-
-const SOCIAL_LINKS = [
-  { href: 'https://github.com', icon: Code, label: 'GitHub' },
-  { href: 'https://linkedin.com', icon: Globe, label: 'LinkedIn' },
-  { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
-]
+import { useTypingEffect } from '../hooks/useTypingEffect';
+import { HeroScene } from './HeroScene';
+import { TerminalWindow } from './TerminalWindow';
+import { ArrowDown } from 'lucide-react';
+import { usePortfolioStore } from '../stores/portfolioStore';
 
 function BootSequence() {
   return (
@@ -24,11 +12,12 @@ function BootSequence() {
       <p>KERNEL: React + NestJS 11</p>
       <p className="text-[var(--color-accent)]/50">SHELL: zsh 5.9</p>
     </div>
-  )
+  );
 }
 
-export function Hero() {
-  const typedText = useTypingEffect(ROLES)
+export function HeroDetails() {
+  const { roles, socials } = usePortfolioStore();
+  const typedText = useTypingEffect(roles);
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
@@ -54,7 +43,7 @@ export function Hero() {
               <h1 className="mb-1 text-2xl font-bold tracking-tight sm:text-3xl">
                 <span className="text-[var(--color-accent)]">Hi, I'm </span>
                 <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] bg-clip-text text-transparent">
-                  Your Name
+                  Amir
                 </span>
               </h1>
               <div className="h-7">
@@ -69,7 +58,7 @@ export function Hero() {
                 </p>
               </div>
               <p className="mt-2 text-xs text-white/40">
-                I build digital experiences that blend creativity with clean
+                I build digital experiences that generate value with clean
                 code.
               </p>
             </div>
@@ -87,7 +76,7 @@ export function Hero() {
         </TerminalWindow>
 
         <div className="relative z-10 flex items-center gap-6">
-          {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+          {socials.map(({ href, icon: Icon, label }) => (
             <a
               key={label}
               href={href}
@@ -111,5 +100,5 @@ export function Hero() {
         <ArrowDown size={16} />
       </a>
     </section>
-  )
+  );
 }

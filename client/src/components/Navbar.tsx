@@ -1,19 +1,19 @@
-import { Link, useLocation } from 'react-router-dom'
-import { match } from 'ts-pattern'
-import { usePortfolioStore } from '../stores/portfolioStore'
+import { Link, useLocation } from 'react-router-dom';
+import { match } from 'ts-pattern';
+import { usePortfolioStore } from '../stores/portfolioStore';
 
 const LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/#about', label: 'About' },
+  { to: '/#skills', label: 'Skills' },
   { to: '/#projects', label: 'Projects' },
   { to: '/#contact', label: 'Contact' },
   { to: '/blog', label: 'Blog' },
-]
+];
 
 export function Navbar() {
-  const location = useLocation()
-  const { name } = usePortfolioStore()
-  const first = name.split(' ')[0]
+  const location = useLocation();
+  const { name } = usePortfolioStore();
+  const first = name.split(' ')[0];
 
   return (
     <nav
@@ -23,7 +23,7 @@ export function Navbar() {
     >
       <Link to="/" className="text-lg font-bold tracking-tight" aria-label="Home">
         <span className="text-[var(--color-accent)]">&lt;</span>
-        {first}
+        {first.toLowerCase()}
         <span className="text-[var(--color-accent)]"> /&gt;</span>
       </Link>
 
@@ -31,24 +31,23 @@ export function Navbar() {
         {LINKS.map(({ to, label }) => {
           const isActive = match({ path: location.pathname + location.hash })
             .with({ path: to }, () => true)
-            .otherwise(() => false)
+            .otherwise(() => false);
 
           return (
             <Link
               key={label}
               to={to}
               aria-current={isActive ? 'page' : undefined}
-              className={`text-sm transition-colors ${
-                isActive
-                  ? 'text-[var(--color-accent)]'
-                  : 'text-white/60 hover:text-white/90'
-              }`}
+              className={`text-sm transition-colors ${isActive
+                ? 'text-[var(--color-accent)]'
+                : 'text-white/60 hover:text-white/90'
+                }`}
             >
               {label}
             </Link>
-          )
+          );
         })}
       </div>
     </nav>
-  )
+  );
 }

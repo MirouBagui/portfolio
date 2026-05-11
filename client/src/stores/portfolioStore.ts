@@ -1,22 +1,23 @@
-import { create } from 'zustand'
+import { Code, Globe, Mail } from 'lucide-react';
+import { create } from 'zustand';
 
 export interface Project {
-  id: string
-  title: string
-  description: string
-  role?: string
-  tech?: string[]
+  id: string;
+  title: string;
+  description: string;
+  role?: string;
+  tech?: string[];
 }
 
 export interface PortfolioState {
-  name: string
-  role: string
-  tagline: string
-  roles: string[]
-  skills: string[]
-  projects: Project[]
-  socials: { label: string; href: string }[]
-  aboutParagraphs: string[]
+  name: string;
+  role: string;
+  tagline: string;
+  roles: string[];
+  skills: string[];
+  projects: Project[];
+  socials: { label: string; href: string, icon: React.ComponentType<{ size?: number; }>; }[];
+  aboutParagraphs: string[];
 }
 
 export const usePortfolioStore = create<PortfolioState>(() => ({
@@ -27,7 +28,7 @@ export const usePortfolioStore = create<PortfolioState>(() => ({
   roles: [
     'Full Stack Engineer',
     'DevOps & Web Security',
-    'Real-Time Systems',
+    'Real-Time Web Systems',
     'UI/UX Developer',
   ],
   skills: [
@@ -52,38 +53,38 @@ export const usePortfolioStore = create<PortfolioState>(() => ({
       title: 'Real-Time Race Engine',
       description: 'Event orchestration engine handling 50k+ concurrent data points with sub-50ms latency for F1 race strategy.',
       role: 'Full Stack Engineer',
-      tech: ['TypeScript', 'React', 'Node.js', 'Docker', 'Portainer'],
+      tech: ['TypeScript', 'React', 'Node.js', 'RabbitMQ', 'Docker', 'Portainer', 'GitLab CI', 'Datadog'],
     },
     {
       id: '2',
-      title: 'Race Operations Dashboard',
-      description: 'Full-stack web tools powering real-time strategy and decision support for motorsport race engineers.',
-      role: 'Full Stack Engineer',
-      tech: ['React', 'Node.js', 'PostgreSQL', 'Datadog'],
+      title: 'Hybrid Full Stack Developer at Knowledge Expert',
+      description: 'Full-stack web tools powering real-time parser and support for Pega DXB API & HR spark.',
+      role: 'Hybrid Full Stack Developer (UI & API Integration)',
+      tech: ['TypeScript', 'React', 'Node.js', 'WebSockets', 'Jenkins', 'PostgreSQL', 'Github Actions'],
     },
     {
       id: '3',
-      title: 'Video Messaging Platform',
+      title: 'Full Stack Developer at AIA Sports',
       description: 'Real-time video messaging platform (WebRTC) with admin portal, from architecture to production.',
       role: 'Full Stack Developer',
-      tech: ['WebRTC', 'React', 'Node.js', 'MongoDB', 'JWT'],
+      tech: ['WebRTC', 'React', 'Keystone.js', 'MongoDB', 'JWT', "Express.js"],
     },
     {
       id: '4',
-      title: 'CI/CD Pipeline Automation',
-      description: 'GitLab CI/CD pipelines reducing deployment time by 40% across Digital PaaS platforms.',
-      role: 'Full Stack Developer Jr',
-      tech: ['GitLab CI', 'Docker', 'Mocha', 'AngularJS'],
+      title: 'Full Stack Developer at EDF',
+      description: 'Deliver new Features and ensure seamless deployment with GitLab CI/CD pipelines reducing deployment time by 40% across Digital PaaS platforms.',
+      role: 'Full Stack Developer',
+      tech: ['React', 'AngularJS', 'Docker', 'Mocha', 'GitLab CI/CD', 'GitHub Actions'],
     },
   ],
   socials: [
-    { label: 'GitHub', href: 'https://github.com/MirouBagui' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/amir-saoudi05' },
-    { label: 'Email', href: 'mailto:saoudi.amire@gmail.com' },
+    { label: 'GitHub', href: 'https://github.com/MirouBagui', icon: Code },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/amir-saoudi05', icon: Globe },
+    { label: 'Email', href: 'mailto:saoudi.amire@gmail.com', icon: Mail },
   ],
   aboutParagraphs: [
-    'Full Stack Engineer with expertise in DevOps and web security. Currently building real-time race operations tools at Capgemini / Stellantis Motorsports — architecting systems that process 50k+ concurrent data points with sub-50ms latency for split-second F1 strategy decisions.',
-    'Previously delivered a WebRTC video messaging platform end-to-end, reduced deployment time by 40% via GitLab CI/CD automation, and cut frontend bug reports by 30% through rigorous TypeScript implementation.',
+    'I\'m a Full Stack Developer with expertise in React and Node.js, ensuring seamless user experiences and robust backend performance.',
+    'Crafting real-time web systems that drive split-second decisions, from motorsport strategy to video communication platforms.',
     'I bridge the gap between data and operations, building intuitive dashboards and secure, reliable workflows that turn complex systems into clear decisions.',
   ],
-}))
+}));
