@@ -5,14 +5,18 @@ const DOT_COLORS = ['bg-red-500', 'bg-yellow-500', 'bg-green-500']
 export function TerminalWindow({
   title,
   children,
+  wide,
 }: {
   title: string
   children: ReactNode
+  wide?: boolean
 }) {
   return (
-    <div className="group relative w-full max-w-2xl">
+    <div className={`group relative w-full ${wide ? 'max-w-4xl' : 'max-w-2xl'}`}>
       <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-b from-[var(--color-accent)]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-      <div className="relative rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm">
+      <div
+        className={`relative rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm ${wide ? 'max-h-[65vh] min-h-[400px]' : ''}`}
+      >
         <div className="flex items-center gap-2 rounded-t-xl border-b border-white/10 bg-white/5 px-4 py-3">
           <div className="flex gap-1.5">
             {DOT_COLORS.map((c) => (
@@ -21,7 +25,9 @@ export function TerminalWindow({
           </div>
           <span className="ml-3 font-mono text-xs text-white/40">{title}</span>
         </div>
-        <div className="relative overflow-hidden rounded-b-xl p-6 sm:p-8">
+        <div
+          className={`relative overflow-hidden rounded-b-xl ${wide ? '' : 'p-6 sm:p-8'}`}
+        >
           <div
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[length:100%_3px] opacity-[0.03]"
             aria-hidden

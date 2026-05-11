@@ -8,6 +8,14 @@ import { WireframeCube } from './shapes/WireframeCube'
 import { CodeLines } from './shapes/CodeLines'
 import { FloatingNode } from './shapes/FloatingNode'
 
+function canRenderThree(): boolean {
+  const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const isWidthOk = window.innerWidth >= 768
+  const isMotionOk = !mql.matches
+  const isCpuOk = (navigator.hardwareConcurrency ?? 8) >= 4
+  return isWidthOk && isMotionOk && isCpuOk
+}
+
 function Scene() {
   const groupRef = useRef<Group>(null)
 
@@ -63,6 +71,8 @@ function Scene() {
 }
 
 export function HeroScene() {
+  if (!canRenderThree()) return null
+
   return (
     <div className="absolute inset-0 -z-10">
       <Canvas

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { match } from 'ts-pattern'
+import { usePortfolioStore } from '../stores/portfolioStore'
 
 const LINKS = [
   { to: '/', label: 'Home' },
@@ -11,12 +12,18 @@ const LINKS = [
 
 export function Navbar() {
   const location = useLocation()
+  const { name } = usePortfolioStore()
+  const first = name.split(' ')[0]
 
   return (
-    <nav className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md sm:px-12">
-      <Link to="/" className="text-lg font-bold tracking-tight">
+    <nav
+      className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md sm:px-12"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <Link to="/" className="text-lg font-bold tracking-tight" aria-label="Home">
         <span className="text-[var(--color-accent)]">&lt;</span>
-        Portfolio
+        {first}
         <span className="text-[var(--color-accent)]"> /&gt;</span>
       </Link>
 
@@ -30,6 +37,7 @@ export function Navbar() {
             <Link
               key={label}
               to={to}
+              aria-current={isActive ? 'page' : undefined}
               className={`text-sm transition-colors ${
                 isActive
                   ? 'text-[var(--color-accent)]'

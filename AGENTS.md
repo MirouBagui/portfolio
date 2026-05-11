@@ -32,3 +32,14 @@ npm run format       # prettier --write
 - **ESLint**: flat config (`eslint.config.mjs`) with `@typescript-eslint/recommendedTypeChecked`; `no-explicit-any` is off, `no-floating-promises` and `no-unsafe-argument` are warnings
 - **Prettier**: `singleQuote: true`, `trailingComma: "all"`, ESLint rule enforces `endOfLine: "auto"` (Windows/Unix newline tolerant)
 - **Jest**: unit tests use `package.json` jest config with `rootDir: "src"`; e2e tests use separate `test/jest-e2e.json` with `rootDir: "."`
+
+## Design System
+
+See [DESIGN.md](./DESIGN.md) for the full system. Key tokens:
+
+- **Aesthetic**: Industrial/Utilitarian — terminal is identity, not theme
+- **Memorable**: "Clean and technical" — whispers competence, doesn't shout
+- **Colors**: bg `#0a0a0a`, accent `#6366f1` (indigo), terminal-green `#4ade80`, border `rgba(255,255,255,0.10)`
+- **Fonts**: Inter (body/headings), JetBrains Mono (terminal UI, code, tags)
+- **Motion**: terminal-fade-in `400ms ease-out`, hover transitions `150ms ease-in-out`, no scroll-jacking
+- **Layout**: Terminal split-pane hero (30/70), 2-column project grid, fixed navbar with backdrop-blur

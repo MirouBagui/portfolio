@@ -5,6 +5,8 @@ import { ProjectDetail } from './pages/ProjectDetail'
 import { projectLoader } from './pages/projectDetailLoader'
 import { Blog } from './pages/Blog'
 import { blogLoader } from './pages/blogLoader'
+import { NotFound } from './pages/NotFound'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 const router = createBrowserRouter([
   {
@@ -21,12 +23,17 @@ const router = createBrowserRouter([
         element: <Blog />,
         loader: blogLoader,
       },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  )
 }
 
 export default App

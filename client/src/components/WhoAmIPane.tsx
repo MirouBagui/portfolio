@@ -1,7 +1,34 @@
+import { useState } from 'react'
 import { usePortfolioStore } from '../stores/portfolioStore'
 
 export function WhoAmIPane() {
   const { name, role, tagline, skills } = usePortfolioStore()
+  const [error, setError] = useState(false)
+
+  if (error) {
+    return (
+      <div
+        role="region"
+        aria-label="Who am I"
+        className="flex h-full flex-col justify-center gap-3"
+      >
+        <div className="space-y-2 rounded border border-red-500/20 bg-red-500/[3%] p-3 text-center">
+          <p className="font-mono text-xs text-red-400/80" role="alert">
+            $ whoami: command not found
+          </p>
+          <p className="font-mono text-xs text-white/30">
+            connection to profile service failed
+          </p>
+          <button
+            onClick={() => setError(false)}
+            className="font-mono text-xs text-[var(--color-accent)] hover:underline"
+          >
+            $ retry connection
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -47,16 +74,22 @@ export function WhoAmIPane() {
           <span className="ml-1 text-xs text-white/50">skills --list</span>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
-          {skills.map((s) => (
-            <span
-              key={s}
-              className="rounded bg-white/5 px-2 py-0.5 font-mono text-[11px] text-[var(--color-accent)]"
-            >
-              {s}
-            </span>
-          ))}
-        </div>
+        {skills.length > 0 ? (
+          <div className="flex flex-wrap gap-1.5">
+            {skills.map((s) => (
+              <span
+                key={s}
+                className="rounded bg-white/5 px-2 py-0.5 font-mono text-[11px] text-[var(--color-accent)]"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p className="font-mono text-xs text-white/20">
+            $ skills: no entries
+          </p>
+        )}
       </div>
     </div>
   )
