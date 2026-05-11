@@ -1,19 +1,41 @@
 import { Link, useLocation } from 'react-router-dom';
 import { match } from 'ts-pattern';
 import { usePortfolioStore } from '../stores/portfolioStore';
+import type { MouseEvent } from 'react';
 
 const LINKS = [
-  { to: '/', label: 'Home' },
+  { to: '/#home', label: 'Home' },
   { to: '/#skills', label: 'Skills' },
   { to: '/#projects', label: 'Projects' },
   { to: '/#contact', label: 'Contact' },
   { to: '/blog', label: 'Blog' },
-];
+] as const;
+
+function isHashLink(to: string): boolean {
+  return to.startsWith('/#');
+}
+
+function scrollToHash(to: string) {
+  const id = to.replace('/#', '');
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
 
 export function Navbar() {
   const location = useLocation();
   const { name } = usePortfolioStore();
   const first = name.split(' ')[0];
+
+  function handleClick(e: MouseEvent, to: string) {
+    if (!isHashLink(to)) return;
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.history.replaceState(null, '', to);
+      scrollToHash(to);
+    }
+  }
 
   return (
     <nav
@@ -37,6 +59,7 @@ export function Navbar() {
             <Link
               key={label}
               to={to}
+              onClick={(e) => handleClick(e, to)}
               aria-current={isActive ? 'page' : undefined}
               className={`text-sm transition-colors ${isActive
                 ? 'text-[var(--color-accent)]'

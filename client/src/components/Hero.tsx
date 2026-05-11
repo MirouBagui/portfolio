@@ -31,7 +31,7 @@ function DeferredHeroScene({ children }: { children: ReactNode; }) {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
+    <section id="home" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
       <DeferredHeroScene><HeroBackground /></DeferredHeroScene>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-accent)_0%,_transparent_60%)] opacity-15" />
       <HeroDetails />

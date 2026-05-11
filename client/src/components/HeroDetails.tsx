@@ -9,7 +9,7 @@ function BootSequence() {
     <div className="mb-6 space-y-1 font-mono text-xs text-white/30">
       <p className="animate-pulse">SYSTEM INITIALIZING...</p>
       <p>OS: PortfolioOS v1.0.0</p>
-      <p>KERNEL: React + NestJS 11</p>
+      <p>KERNEL: React + TypeScript</p>
       <p className="text-[var(--color-accent)]/50">SHELL: zsh 5.9</p>
     </div>
   );
