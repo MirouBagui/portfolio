@@ -1,34 +1,34 @@
-import { useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, CameraShake, Sparkles } from '@react-three/drei'
-import type { Group } from 'three'
-import { AtomSymbol } from './shapes/AtomSymbol'
-import { BracketPair } from './shapes/BracketPair'
-import { WireframeCube } from './shapes/WireframeCube'
-import { CodeLines } from './shapes/CodeLines'
-import { FloatingNode } from './shapes/FloatingNode'
+import { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Environment, CameraShake, Sparkles } from '@react-three/drei';
+import type { Group } from 'three';
+import { AtomSymbol } from './shapes/AtomSymbol';
+import { BracketPair } from './shapes/BracketPair';
+import { WireframeCube } from './shapes/WireframeCube';
+import { CodeLines } from './shapes/CodeLines';
+import { FloatingNode } from './shapes/FloatingNode';
 
 function canRenderThree(): boolean {
-  const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
-  const isWidthOk = window.innerWidth >= 768
-  const isMotionOk = !mql.matches
-  const isCpuOk = (navigator.hardwareConcurrency ?? 8) >= 4
-  return isWidthOk && isMotionOk && isCpuOk
+  const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isWidthOk = window.innerWidth >= 768;
+  const isMotionOk = !mql.matches;
+  const isCpuOk = (navigator.hardwareConcurrency ?? 8) >= 4;
+  return isWidthOk && isMotionOk && isCpuOk;
 }
 
 function Scene() {
-  const groupRef = useRef<Group>(null)
+  const groupRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.02
+      groupRef.current.rotation.y += delta * 0.02;
     }
-  })
+  });
 
   return (
     <group ref={groupRef}>
       <ambientLight intensity={0.5} />
-      <Environment preset="city" />
+      <Environment preset="studio" />
 
       <spotLight
         position={[6, 4, 3]}
@@ -67,11 +67,11 @@ function Scene() {
       <FloatingNode position={[-4.5, -0.5, -1.5]} scale={1} color="#4f46e5" />
       <FloatingNode position={[2, 3.5, -1.5]} scale={0.7} color="#818cf8" />
     </group>
-  )
+  );
 }
 
 export function HeroScene() {
-  if (!canRenderThree()) return null
+  if (!canRenderThree()) return null;
 
   return (
     <div className="absolute inset-0 -z-10">
@@ -91,5 +91,5 @@ export function HeroScene() {
         />
       </Canvas>
     </div>
-  )
+  );
 }

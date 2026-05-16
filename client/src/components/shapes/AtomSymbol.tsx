@@ -1,25 +1,25 @@
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { MeshDistortMaterial } from '@react-three/drei'
-import type { Group } from 'three'
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { MeshDistortMaterial } from '@react-three/drei';
+import type { Group } from 'three';
 
 export function AtomSymbol({
   position,
   scale,
   color,
 }: {
-  position: [number, number, number]
-  scale: number
-  color: string
+  position: [number, number, number];
+  scale: number;
+  color: string;
 }) {
-  const groupRef = useRef<Group>(null)
+  const groupRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.5
-      groupRef.current.rotation.x += delta * 0.2
+      groupRef.current.rotation.y += delta * 0.5;
+      groupRef.current.rotation.x += delta * 0.2;
     }
-  })
+  });
 
   return (
     <group ref={groupRef} position={position} scale={scale}>
@@ -58,5 +58,5 @@ export function AtomSymbol({
         </mesh>
       ))}
     </group>
-  )
+  );
 }

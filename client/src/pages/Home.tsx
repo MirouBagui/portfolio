@@ -50,7 +50,7 @@ export function Home() {
       {onIdle(
         <>
           <About />
-          <section id="projects" className="scroll-mt-16">
+          <section className="scroll-mt-16">
             <TerminalSplitPane />
           </section>
         </>,

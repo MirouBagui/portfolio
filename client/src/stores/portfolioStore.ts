@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import config from '../portfolio.config';
 import type { GitHubRepo } from './githubTypes';
 
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
+const ICON_MAP: Record<string, React.ComponentType<{ size?: number; }>> = {
   GitHub: Code,
   LinkedIn: Globe,
   Email: Mail,
@@ -15,7 +15,7 @@ export interface Project {
   description: string;
   role?: string;
   tech?: string[];
-  github?: { url: string; stars: number; forks: number; lang?: string };
+  github?: { url: string; stars: number; forks: number; lang?: string; };
 }
 
 export interface PortfolioState {
@@ -25,7 +25,7 @@ export interface PortfolioState {
   roles: string[];
   skills: string[];
   projects: Project[];
-  socials: { label: string; href: string; icon: React.ComponentType<{ size?: number }> }[];
+  socials: { label: string; href: string; icon: React.ComponentType<{ size?: number; }>; }[];
   aboutParagraphs: string[];
   githubRepos: GitHubRepo[];
   config: typeof config;

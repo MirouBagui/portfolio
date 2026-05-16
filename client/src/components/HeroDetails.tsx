@@ -92,11 +92,11 @@ export function HeroDetails() {
       </div>
 
       <a
-        href="#about"
+        href="#skills"
         className="absolute bottom-8 flex animate-bounce flex-col items-center gap-1 text-white/20 transition-colors hover:text-white/50"
         aria-label="Scroll down"
       >
-        <span className="font-mono text-[10px]">$ cd about</span>
+        <span className="font-mono text-[10px]">$ cd skills</span>
         <ArrowDown size={16} />
       </a>
     </section>

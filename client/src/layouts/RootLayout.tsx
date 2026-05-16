@@ -1,37 +1,37 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import { Navbar } from '../components/Navbar'
-import { Footer } from '../components/Footer'
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 function useHashScroll() {
-  const { hash } = useLocation()
+  const { hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) return
-    const id = hash.replace('#', '')
+    if (!hash) return;
+    const id = hash.replace('#', '');
 
     function scroll() {
-      const el = document.getElementById(id)
+      const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-        return true
+        el.scrollIntoView({ behavior: 'smooth' });
+        return true;
       }
-      return false
+      return false;
     }
 
-    if (scroll()) return
+    if (scroll()) return;
 
-    let attempts = 0
+    let attempts = 0;
     const interval = setInterval(() => {
-      if (scroll() || ++attempts > 30) clearInterval(interval)
-    }, 100)
+      if (scroll() || ++attempts > 30) clearInterval(interval);
+    }, 100);
 
-    return () => clearInterval(interval)
-  }, [hash])
+    return () => clearInterval(interval);
+  }, [hash]);
 }
 
 export function RootLayout() {
-  useHashScroll()
+  useHashScroll();
 
   return (
     <>
@@ -39,5 +39,5 @@ export function RootLayout() {
       <Outlet />
       <Footer />
     </>
-  )
+  );
 }
