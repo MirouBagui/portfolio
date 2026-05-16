@@ -1,16 +1,11 @@
 import { lazy, Component, type ReactNode } from 'react';
 import { Hero } from '../components/Hero';
+import { TerminalSplitPane } from '../components/TerminalSplitPane';
 import { usePortfolioStore } from '../stores/portfolioStore';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const About = lazy(() =>
   import('../components/Skills').then((m) => ({ default: m.Skills })),
-);
-const Projects = lazy(() =>
-  import('../components/Projects').then((m) => ({ default: m.Projects })),
-);
-const Contact = lazy(() =>
-  import('../components/Contact').then((m) => ({ default: m.Contact })),
 );
 
 function onIdle(children: ReactNode) {
@@ -55,8 +50,9 @@ export function Home() {
       {onIdle(
         <>
           <About />
-          <Projects />
-          <Contact />
+          <section id="projects" className="scroll-mt-16">
+            <TerminalSplitPane />
+          </section>
         </>,
       )}
     </>

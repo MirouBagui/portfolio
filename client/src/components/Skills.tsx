@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { usePortfolioStore } from '../stores/portfolioStore';
 
 export function Skills() {
+  const ref = useScrollReveal<HTMLDivElement>();
   const { aboutParagraphs } = usePortfolioStore();
   const { projects } = usePortfolioStore();
   const allTags = useMemo(() => {
@@ -13,11 +15,12 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="flex flex-col items-center justify-center px-4 py-24 scroll-mt-24"
+      ref={ref}
+      className="scroll-reveal flex flex-col items-center justify-center px-4 py-24 scroll-mt-24"
     >
       <div className="max-w-2xl text-center">
         <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
-          <span className="text-[var(--color-accent)]">#</span> What I Do
+          <span className="text-[var(--color-accent)]">//</span> skills
         </h2>
         <div className="space-y-4 text-left text-white/60">
           {aboutParagraphs.map((p, i) => (

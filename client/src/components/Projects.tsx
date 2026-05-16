@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useMemo, type KeyboardEvent } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { usePortfolioStore } from '../stores/portfolioStore';
 
 export function Projects() {
+  const ref = useScrollReveal<HTMLDivElement>();
   const { projects } = usePortfolioStore();
   const [filter, setFilter] = useState('');
   const [filterInput, setFilterInput] = useState('');
@@ -32,7 +34,8 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="flex min-h-screen flex-col items-center px-4 py-24 scroll-mt-24"
+      ref={ref}
+      className="scroll-reveal flex min-h-screen flex-col items-center px-4 py-24 scroll-mt-24"
     >
       <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
         <span className="text-[var(--color-accent)]">//</span> projects

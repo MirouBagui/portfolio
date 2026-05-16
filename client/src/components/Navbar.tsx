@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { match } from 'ts-pattern';
+import { useScrollDirection } from '../hooks/useScrollDirection';
 import { usePortfolioStore } from '../stores/portfolioStore';
 import type { MouseEvent } from 'react';
 
@@ -27,6 +28,8 @@ export function Navbar() {
   const location = useLocation();
   const { name } = usePortfolioStore();
   const first = name.split(' ')[0];
+  const { direction, y } = useScrollDirection();
+  const hidden = direction === 'down' && y > 80;
 
   function handleClick(e: MouseEvent, to: string) {
     if (!isHashLink(to)) return;
@@ -39,7 +42,8 @@ export function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md sm:px-12"
+      className={`fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md transition-transform duration-300 sm:px-12 ${hidden ? '-translate-y-full' : 'translate-y-0'
+        }`}
       role="navigation"
       aria-label="Main navigation"
     >

@@ -3,8 +3,18 @@ import { Link } from 'react-router-dom';
 import { usePortfolioStore } from '../stores/portfolioStore';
 import PromptLine from './PromptLine';
 
+function RepoMeta({ stars, forks, lang }: { stars?: number; forks?: number; lang?: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 text-[10px] text-white/20">
+      {lang && <span>{lang}</span>}
+      {stars != null && <span>★ {stars}</span>}
+      {forks != null && <span>⑂ {forks}</span>}
+    </span>
+  );
+}
+
 export function ProjectsPane({ focused }: { focused?: boolean; }) {
-  const { projects } = usePortfolioStore();
+  const { projects, githubRepos } = usePortfolioStore();
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -121,6 +131,45 @@ export function ProjectsPane({ focused }: { focused?: boolean; }) {
             </div>
           </Link>
         ))}
+
+        {githubRepos.length > 0 && (
+          <>
+            <PromptLine command={"ls -la ~/github-pinned"} />
+            <div className="space-y-1 text-[11px] text-white/20">
+              <p>{githubRepos.length} pinned repositories (GitHub)</p>
+            </div>
+            {githubRepos.map((repo) => (
+              <a
+                key={repo.id}
+                href={repo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-md border border-white/[7%] bg-white/[3%] p-3 transition-all hover:border-[var(--color-accent)]/30 hover:bg-white/[6%]"
+              >
+                <div className="flex items-start gap-2">
+                  <span className="mt-0.5 text-xs text-green-400 transition-transform group-hover:translate-x-0.5">
+                    ◆
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="truncate text-sm font-medium text-white/80 transition-colors group-hover:text-green-400">
+                        {repo.name}
+                      </span>
+                      <RepoMeta
+                        stars={repo.stargazerCount}
+                        forks={repo.forkCount}
+                        lang={repo.primaryLanguage?.name}
+                      />
+                    </div>
+                    <p className="mt-0.5 text-xs text-white/40">
+                      {repo.description || 'No description'}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

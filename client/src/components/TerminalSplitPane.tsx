@@ -1,15 +1,19 @@
 import { useState, useCallback, useRef, type KeyboardEvent } from 'react';
+import { WhoAmIPane } from './WhoAmIPane';
 import { ProjectsPane } from './ProjectsPane';
 import { ContactBar } from './ContactBar';
+import { StatusLine } from './StatusLine';
 
-type FocusZone = 'projects' | 'contact';
+type FocusZone = 'whoami' | 'projects' | 'contact';
 
-const ORDER: FocusZone[] = ['projects', 'contact'];
+const ORDER: FocusZone[] = ['whoami', 'projects', 'contact'];
 
 export function TerminalSplitPane() {
   const [focus, setFocus] = useState<FocusZone>('projects');
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+
+  const whoamiRef = useRef<HTMLDivElement>(null);
 
   const cycleFocus = useCallback((forward: boolean = true) => {
     setFocus((prev) => {
@@ -28,7 +32,9 @@ export function TerminalSplitPane() {
         cycleFocus(!e.shiftKey);
       }
       if (e.key === 'j' || e.key === 'k') {
-        const el = focus === 'projects' ? projectsRef.current : contactRef.current;
+        const el = focus === 'whoami' ? whoamiRef.current
+          : focus === 'projects' ? projectsRef.current
+          : contactRef.current;
         if (el) {
           const dir = e.key === 'j' ? 1 : -1;
           el.scrollBy({ top: 80 * dir, behavior: 'smooth' });
@@ -46,7 +52,21 @@ export function TerminalSplitPane() {
       aria-label="Terminal dashboard"
     >
       <div className="flex flex-col gap-0 md:flex-row">
-        {/* Right pane: projects */}
+        {/* Left pane: whoami (30%) */}
+        <div
+          ref={whoamiRef}
+          className={`flex min-h-0 flex-col overflow-y-auto border-b border-white/10 p-4 transition-all duration-150 md:basis-[30%] md:border-b-0 md:border-r md:border-white/10 scrollbar-none ${focus === 'whoami'
+            ? 'ring-1 ring-inset ring-indigo-400/30'
+            : ''
+            }`}
+          onClick={() => setFocus('whoami')}
+          role="tabpanel"
+          aria-label="Who am I"
+        >
+          <WhoAmIPane />
+        </div>
+
+        {/* Right pane: projects (70%) */}
         <div
           ref={projectsRef}
           className={`flex min-h-0 flex-1 flex-col overflow-y-auto border-b border-white/10 p-4 transition-all duration-150 md:basis-[70%] md:border-b-0 scrollbar-none ${focus === 'projects'
@@ -72,7 +92,7 @@ export function TerminalSplitPane() {
         <ContactBar />
       </div>
 
-      {/* <StatusLine /> */}
+      <StatusLine />
     </div>
   );
 }

@@ -8,5 +8,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main"
+  },
+  "dependencies": {
+    "@nestjs/config": "^4.0.4"
   }
 }

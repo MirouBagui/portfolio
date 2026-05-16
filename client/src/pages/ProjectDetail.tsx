@@ -2,13 +2,15 @@ import { useLoaderData, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import type { Project } from './projectDetailLoader'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export function ProjectDetail() {
+  const ref = useScrollReveal<HTMLDivElement>()
   const project = useLoaderData() as Project
   usePageMeta(`${project.title} — Amir SAOUDI`, project.description)
 
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center px-4 py-24">
+    <section ref={ref} className="scroll-reveal flex min-h-screen flex-col items-center justify-center px-4 py-24">
       <div className="w-full max-w-2xl">
         <Link
           to="/#projects"

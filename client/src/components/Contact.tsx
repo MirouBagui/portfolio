@@ -1,7 +1,9 @@
 import { Mail } from 'lucide-react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import { usePortfolioStore } from '../stores/portfolioStore'
 
 export function Contact() {
+  const ref = useScrollReveal<HTMLDivElement>()
   const email = usePortfolioStore((s) =>
     s.socials.find((s) => s.label === 'Email'),
   )
@@ -11,11 +13,12 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="flex min-h-screen flex-col items-center justify-center px-4 py-24 scroll-mt-24"
+      ref={ref}
+      className="scroll-reveal flex min-h-screen flex-col items-center justify-center px-4 py-24 scroll-mt-24"
     >
       <div className="max-w-lg text-center">
         <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
-          <span className="text-[var(--color-accent)]">#</span> Get In Touch
+          <span className="text-[var(--color-accent)]">//</span> contact
         </h2>
         <p className="mb-8 text-white/60">
           Working on something interesting? Let's talk.
