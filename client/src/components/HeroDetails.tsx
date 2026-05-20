@@ -16,7 +16,7 @@ function BootSequence() {
 }
 
 export function HeroDetails() {
-  const { roles, socials } = usePortfolioStore();
+  const { roles, tagline, socials } = usePortfolioStore();
   const typedText = useTypingEffect(roles);
 
   return (
@@ -58,8 +58,7 @@ export function HeroDetails() {
                 </p>
               </div>
               <p className="mt-2 text-xs text-white/40">
-                I build digital experiences that generate value with clean
-                code.
+                {tagline}
               </p>
             </div>
 

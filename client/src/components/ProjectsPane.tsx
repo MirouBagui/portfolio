@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePortfolioStore } from '../stores/portfolioStore';
 import PromptLine from './PromptLine';
 
-function RepoMeta({ stars, forks, lang }: { stars?: number; forks?: number; lang?: string }) {
+function RepoMeta({ stars, forks, lang }: { stars?: number; forks?: number; lang?: string; }) {
   return (
     <span className="inline-flex items-center gap-2 text-[10px] text-white/20">
       {lang && <span>{lang}</span>}
@@ -13,24 +13,15 @@ function RepoMeta({ stars, forks, lang }: { stars?: number; forks?: number; lang
   );
 }
 
-export function ProjectsPane({ focused }: { focused?: boolean; }) {
+export function ProjectsPane() {
   const { projects, githubRepos } = usePortfolioStore();
   const [error, setError] = useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (focused && scrollRef.current) {
-      scrollRef.current.focus();
-    }
-  }, [focused]);
-
 
   if (error) {
     return (
       <div
         role="region"
         aria-label="Projects"
-        ref={scrollRef}
         tabIndex={0}
         className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
       >
@@ -71,7 +62,6 @@ export function ProjectsPane({ focused }: { focused?: boolean; }) {
       <div
         role="region"
         aria-label="Projects"
-        ref={scrollRef}
         tabIndex={0}
         className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
       >
@@ -95,7 +85,6 @@ export function ProjectsPane({ focused }: { focused?: boolean; }) {
     <div
       role="region"
       aria-label="Projects"
-      ref={scrollRef}
       tabIndex={0}
       className="scrollbar-none flex h-full flex-col gap-3 overflow-y-auto outline-none"
     >

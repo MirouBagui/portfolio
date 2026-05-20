@@ -7,7 +7,7 @@ export function StatusLine() {
     >
       <span className="text-[11px] text-green-500/60">● NORMAL</span>
       <span className="text-[11px] text-white/20">
-        tab to focus pane &middot; j/k to scroll
+        tab to focus pane · ↑/↓ to scroll
       </span>
     </div>
   )

@@ -1,40 +1,40 @@
 export interface ProjectConfig {
-  id: string
-  title: string
-  description: string
-  role?: string
-  tech?: string[]
+  id: string;
+  title: string;
+  description: string;
+  role?: string;
+  tech?: string[];
 }
 
 export interface SocialConfig {
-  label: string
-  href: string
+  label: string;
+  href: string;
 }
 
 export interface SectionConfig {
-  display: boolean
+  display: boolean;
 }
 
 export interface PortfolioConfig {
   meta: {
-    name: string
-    firstName: string
-    role: string
-    tagline: string
-    roles: string[]
-    description: string
-  }
+    name: string;
+    firstName: string;
+    role: string;
+    tagline: string;
+    roles: string[];
+    description: string;
+  };
   sections: {
-    hero: SectionConfig
-    skills: SectionConfig
-    projects: SectionConfig & { terminalPane: boolean }
-    contact: SectionConfig
-    blog: SectionConfig
-  }
-  skills: string[]
-  projects: ProjectConfig[]
-  socials: SocialConfig[]
-  aboutParagraphs: string[]
+    hero: SectionConfig;
+    skills: SectionConfig;
+    projects: SectionConfig & { terminalPane: boolean; };
+    contact: SectionConfig;
+    blog: SectionConfig;
+  };
+  skills: string[];
+  projects: ProjectConfig[];
+  socials: SocialConfig[];
+  aboutParagraphs: string[];
 }
 
 const config: PortfolioConfig = {
@@ -47,8 +47,9 @@ const config: PortfolioConfig = {
     roles: [
       'Full Stack Engineer',
       'DevOps & Web Security',
-      'Real-Time Web Systems',
-      'UI/UX Developer',
+      'Software Architect',
+      'Technical Lead',
+      'System Design',
     ],
     description: 'Full Stack Developer — real-time systems, DevOps, Web Security',
   },
@@ -61,28 +62,35 @@ const config: PortfolioConfig = {
   },
   skills: [
     'TypeScript',
-    'React',
-    'Vue',
     'Node.js',
+    'WebSockets',
+    'Express.js',
+    'Vue',
+    'React',
     'PostgreSQL',
     'MongoDB',
+    'RabbitMQ',
+    'Redis',
+    'Python',
+    'WebRTC',
+    'Lit',
+    'MySQL',
     'Docker',
     'AWS',
     'Azure',
     'GitLab CI/CD',
     'GitHub Actions',
     'Datadog',
-    'WebRTC',
     'REST API',
   ],
   projects: [
     {
       id: '1',
-      title: 'Real-Time Race Engine',
+      title: 'Senior Full Stack Engineer at Stellantis Motorsport',
       description:
         'Event orchestration engine handling 50k+ concurrent data points with sub-50ms latency for F1 race strategy.',
       role: 'Full Stack Engineer',
-      tech: ['TypeScript', 'React', 'Node.js', 'RabbitMQ', 'Docker', 'Portainer', 'GitLab CI', 'Datadog'],
+      tech: ['TypeScript', 'React', 'Node.js', 'RabbitMQ', 'DDD', 'RabbitMQ', 'Portainer', 'GitLab CI', 'Datadog'],
     },
     {
       id: '2',
@@ -102,11 +110,11 @@ const config: PortfolioConfig = {
     },
     {
       id: '4',
-      title: 'Full Stack Developer at EDF',
+      title: 'Backend Developer at EDF',
       description:
         'Deliver new Features and ensure seamless deployment with GitLab CI/CD pipelines reducing deployment time by 40% across Digital PaaS platforms.',
-      role: 'Full Stack Developer',
-      tech: ['React', 'AngularJS', 'Docker', 'Mocha', 'GitLab CI/CD', 'GitHub Actions'],
+      role: 'Backend Developer',
+      tech: ['Node.js', 'Express.js', 'Rest API', 'MySQL', 'Mocha', 'GitLab CI/CD', 'GitHub Actions'],
     },
   ],
   socials: [
@@ -119,6 +127,6 @@ const config: PortfolioConfig = {
     'Crafting real-time web systems that drive split-second decisions, from motorsport strategy to video communication platforms.',
     'I bridge the gap between data and operations, building intuitive dashboards and secure, reliable workflows that turn complex systems into clear decisions.',
   ],
-}
+};
 
-export default config
+export default config;

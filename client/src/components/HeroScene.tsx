@@ -1,12 +1,10 @@
-import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, CameraShake, Sparkles } from '@react-three/drei';
-import type { Group } from 'three';
-import { AtomSymbol } from './shapes/AtomSymbol';
-import { BracketPair } from './shapes/BracketPair';
-import { WireframeCube } from './shapes/WireframeCube';
-import { CodeLines } from './shapes/CodeLines';
-import { FloatingNode } from './shapes/FloatingNode';
+import { Environment, Sparkles } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { NodeHex } from './shapes/NodeHex';
+import { ReactAtom } from './shapes/ReactAtom';
+import { MongoDBStack } from './shapes/MongoDBStack';
+import { RabbitQueue } from './shapes/RabbitQueue';
+import { DockerContainer } from './shapes/DockerContainer';
 
 function canRenderThree(): boolean {
   const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -17,16 +15,8 @@ function canRenderThree(): boolean {
 }
 
 function Scene() {
-  const groupRef = useRef<Group>(null);
-
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.02;
-    }
-  });
-
   return (
-    <group ref={groupRef}>
+    <>
       <ambientLight intensity={0.5} />
       <Environment preset="studio" />
 
@@ -60,13 +50,12 @@ function Scene() {
         opacity={0.3}
       />
 
-      <AtomSymbol position={[-3.5, 2, -2]} scale={0.9} color="#6366f1" />
-      <BracketPair position={[4, 1.5, -3]} scale={0.8} />
-      <WireframeCube position={[-2, -1.5, -4]} scale={1.2} color="#a78bfa" />
-      <CodeLines position={[3.5, -1.8, -2.5]} scale={0.7} color="#6366f1" />
-      <FloatingNode position={[-4.5, -0.5, -1.5]} scale={1} color="#4f46e5" />
-      <FloatingNode position={[2, 3.5, -1.5]} scale={0.7} color="#818cf8" />
-    </group>
+      <NodeHex position={[-2.5, 1.5, -2.5]} scale={0.5} />
+      <ReactAtom position={[2.5, 1.8, -2.5]} scale={0.9} />
+      <MongoDBStack position={[2.5, -1.8, -2.5]} scale={0.8} />
+      <RabbitQueue position={[0, 2.5, -3]} scale={0.8} />
+      <DockerContainer position={[0, -2.2, -3]} scale={0.8} />
+    </>
   );
 }
 
@@ -81,14 +70,6 @@ export function HeroScene() {
         style={{ background: 'transparent' }}
       >
         <Scene />
-        <CameraShake
-          maxYaw={0.005}
-          maxPitch={0.005}
-          maxRoll={0.002}
-          yawFrequency={0.3}
-          pitchFrequency={0.3}
-          rollFrequency={0.2}
-        />
       </Canvas>
     </div>
   );

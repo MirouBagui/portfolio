@@ -1,5 +1,4 @@
 import { useState, useCallback, useRef, type KeyboardEvent } from 'react';
-import { WhoAmIPane } from './WhoAmIPane';
 import { ProjectsPane } from './ProjectsPane';
 import { ContactBar } from './ContactBar';
 import { StatusLine } from './StatusLine';
@@ -34,7 +33,7 @@ export function TerminalSplitPane() {
       if (e.key === 'j' || e.key === 'k') {
         const el = focus === 'whoami' ? whoamiRef.current
           : focus === 'projects' ? projectsRef.current
-          : contactRef.current;
+            : contactRef.current;
         if (el) {
           const dir = e.key === 'j' ? 1 : -1;
           el.scrollBy({ top: 80 * dir, behavior: 'smooth' });
@@ -54,22 +53,8 @@ export function TerminalSplitPane() {
       <div className="flex flex-col gap-0 md:flex-row">
         {/* Left pane: whoami (30%) */}
         <div
-          ref={whoamiRef}
-          className={`flex min-h-0 flex-col overflow-y-auto border-b border-white/10 p-4 transition-all duration-150 md:basis-[30%] md:border-b-0 md:border-r md:border-white/10 scrollbar-none ${focus === 'whoami'
-            ? 'ring-1 ring-inset ring-indigo-400/30'
-            : ''
-            }`}
-          onClick={() => setFocus('whoami')}
-          role="tabpanel"
-          aria-label="Who am I"
-        >
-          <WhoAmIPane />
-        </div>
-
-        {/* Right pane: projects (70%) */}
-        <div
           ref={projectsRef}
-          className={`flex min-h-0 flex-1 flex-col overflow-y-auto border-b border-white/10 p-4 transition-all duration-150 md:basis-[70%] md:border-b-0 scrollbar-none ${focus === 'projects'
+          className={`flex min-h-0 flex-1 flex-col overflow-y-auto border-b border-white/10 p-4 transition-all duration-150 md:border-b-0 scrollbar-none ${focus === 'projects'
             ? 'ring-1 ring-inset ring-indigo-400/30'
             : ''
             }`}
@@ -77,7 +62,7 @@ export function TerminalSplitPane() {
           role="tabpanel"
           aria-label="Projects"
         >
-          <ProjectsPane focused={focus === 'projects'} />
+          <ProjectsPane />
         </div>
       </div>
 
