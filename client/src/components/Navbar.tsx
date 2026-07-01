@@ -1,22 +1,56 @@
-import { Link, useLocation } from 'react-router-dom'
-import { match } from 'ts-pattern'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { match } from 'ts-pattern';
+import { useScrollDirection } from '../hooks/useScrollDirection';
+import { usePortfolioStore } from '../stores/portfolioStore';
+import type { MouseEvent } from 'react';
 
 const LINKS = [
-  { to: '/', label: 'Home' },
-  { to: '/#about', label: 'About' },
+  { to: '/#home', label: 'Home' },
+  { to: '/#skills', label: 'Skills' },
   { to: '/#projects', label: 'Projects' },
-  { to: '/#contact', label: 'Contact' },
   { to: '/blog', label: 'Blog' },
-]
+] as const;
+
+function isHashLink(to: string): boolean {
+  return to.startsWith('/#');
+}
+
+function scrollToHash(to: string) {
+  const id = to.replace('/#', '');
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
 
 export function Navbar() {
-  const location = useLocation()
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { name } = usePortfolioStore();
+  const first = name.split(' ')[0];
+  const { direction, y } = useScrollDirection();
+  const hidden = direction === 'down' && y > 80;
+
+  function handleClick(e: MouseEvent, to: string) {
+    if (!isHashLink(to)) return;
+    if (location.pathname === '/') {
+      e.preventDefault();
+      // Go through the router so location.hash (and aria-current) update.
+      navigate(to, { replace: true });
+      scrollToHash(to);
+    }
+  }
 
   return (
-    <nav className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md sm:px-12">
-      <Link to="/" className="text-lg font-bold tracking-tight">
+    <nav
+      className={`fixed top-0 z-50 flex w-full items-center justify-between border-b border-white/10 bg-[var(--color-bg-primary)]/80 px-6 py-4 backdrop-blur-md transition-transform duration-300 sm:px-12 ${hidden ? '-translate-y-full' : 'translate-y-0'
+        }`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <Link to="/" className="text-lg font-bold tracking-tight" aria-label="Home">
         <span className="text-[var(--color-accent)]">&lt;</span>
-        Portfolio
+        {first.toLowerCase()}
         <span className="text-[var(--color-accent)]"> /&gt;</span>
       </Link>
 
@@ -24,23 +58,24 @@ export function Navbar() {
         {LINKS.map(({ to, label }) => {
           const isActive = match({ path: location.pathname + location.hash })
             .with({ path: to }, () => true)
-            .otherwise(() => false)
+            .otherwise(() => false);
 
           return (
             <Link
               key={label}
               to={to}
-              className={`text-sm transition-colors ${
-                isActive
-                  ? 'text-[var(--color-accent)]'
-                  : 'text-white/60 hover:text-white/90'
-              }`}
+              onClick={(e) => handleClick(e, to)}
+              aria-current={isActive ? 'page' : undefined}
+              className={`text-sm transition-colors ${isActive
+                ? 'text-[var(--color-accent)]'
+                : 'text-white/60 hover:text-white/90'
+                }`}
             >
               {label}
             </Link>
-          )
+          );
         })}
       </div>
     </nav>
-  )
+  );
 }

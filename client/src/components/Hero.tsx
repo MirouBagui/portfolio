@@ -1,115 +1,162 @@
-import { useTypingEffect } from '../hooks/useTypingEffect'
-import { HeroScene } from './HeroScene'
-import { TerminalWindow } from './TerminalWindow'
-import { Code, Globe, Mail, ArrowDown } from 'lucide-react'
+import { useTypingEffect } from '../hooks/useTypingEffect';
+import { usePortfolioStore } from '../stores/portfolioStore';
 
-const ROLES = [
-  'Full Stack Developer',
-  'UI/UX Designer',
-  'Open Source Enthusiast',
-  'Problem Solver',
-]
-
-const SOCIAL_LINKS = [
-  { href: 'https://github.com', icon: Code, label: 'GitHub' },
-  { href: 'https://linkedin.com', icon: Globe, label: 'LinkedIn' },
-  { href: 'mailto:hello@example.com', icon: Mail, label: 'Email' },
-]
-
-function BootSequence() {
+function FloatingShapes() {
   return (
-    <div className="mb-6 space-y-1 font-mono text-xs text-white/30">
-      <p className="animate-pulse">SYSTEM INITIALIZING...</p>
-      <p>OS: PortfolioOS v1.0.0</p>
-      <p>KERNEL: React + NestJS 11</p>
-      <p className="text-[var(--color-accent)]/50">SHELL: zsh 5.9</p>
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      {/* hexagon */}
+      <div className="absolute -top-10 right-16" style={{ animation: 'floatA 7s ease-in-out infinite' }}>
+        <div
+          className="h-[72px] w-[72px]"
+          style={{
+            background: 'linear-gradient(135deg,rgba(99,102,241,.55),rgba(6,182,212,.35))',
+            clipPath: 'polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)',
+          }}
+        />
+      </div>
+      {/* spinning ring */}
+      <div className="absolute bottom-2 left-2" style={{ animation: 'floatB 9s ease-in-out infinite' }}>
+        <div className="flex h-[78px] w-[78px] items-center justify-center rounded-full border-[2.5px] border-[rgba(6,182,212,.4)]">
+          <div
+            className="h-12 w-12 rounded-full border-[1.5px] border-dashed border-[rgba(6,182,212,.25)]"
+            style={{ animation: 'spinSlow 9s linear infinite' }}
+          />
+        </div>
+      </div>
+      {/* capsule */}
+      <div className="absolute bottom-14 right-2" style={{ animation: 'floatC 8s ease-in-out infinite' }}>
+        <div className="h-[18px] w-[58px] rounded-full border border-[rgba(16,185,129,.4)] bg-[rgba(16,185,129,.35)]" />
+        <div className="-mt-px h-[34px] w-[58px] border border-t-0 border-[rgba(16,185,129,.25)] bg-[rgba(16,185,129,.08)]" />
+        <div className="-mt-px h-[18px] w-[58px] rounded-full border border-[rgba(16,185,129,.3)] bg-[rgba(16,185,129,.2)]" />
+      </div>
     </div>
-  )
+  );
+}
+
+function TerminalCard({ firstName, role }: { firstName: string; role: string; }) {
+  return (
+    <div
+      className="relative w-full max-w-[530px] overflow-hidden rounded-[14px] border border-[rgba(6,182,212,.18)] bg-[rgba(10,16,28,.92)] backdrop-blur-md"
+      style={{ boxShadow: '0 32px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04)' }}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-x-0 z-[1] h-px"
+        style={{
+          background: 'linear-gradient(90deg,transparent,rgba(6,182,212,.15),transparent)',
+          animation: 'scanline 5s linear infinite',
+        }}
+      />
+      <div className="flex items-center gap-2 border-b border-white/[6%] bg-white/[3%] px-4 py-3">
+        <div className="flex gap-1.5">
+          <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+          <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+          <span className="h-3 w-3 rounded-full bg-[#28c941]" />
+        </div>
+        <span className="flex-1 text-center font-mono text-xs text-[#334155]">portfolio@dev — zsh</span>
+      </div>
+      <div className="px-7 py-6 font-mono text-[13px] leading-[1.85]">
+        <p className="text-[#334155]">SYSTEM INITIALIZING...</p>
+        <p className="text-[#334155]">OS: PortfolioOS v2.0.0</p>
+        <p className="mb-5 text-[#334155]">KERNEL: React + TypeScript · build 2026</p>
+        <p>
+          <span className="text-[#22d3ee]">visitor</span>
+          <span className="text-[#334155]">@</span>
+          <span className="text-[#818cf8]">portfolio</span>
+          <span className="text-[#334155]"> : ~ $ </span>
+          <span className="text-[#e2e8f0]">about --whoami</span>
+        </p>
+        <div className="mt-3.5 border-l-2 border-[rgba(6,182,212,.35)] pl-3.5">
+          <p className="font-sans text-xl font-bold tracking-tight text-[#f8fafc]">Hi, I'm {firstName}</p>
+          <p className="mt-1.5 text-[13px] text-[#7dd3fc]">
+            &gt; Role: <span className="text-[#f8fafc]">{role}</span>
+          </p>
+          <p className="mt-3 font-sans text-xs leading-relaxed text-[#475569]">
+            Real-time systems · motorsport strategy · video platforms
+          </p>
+        </div>
+        <p className="mt-[18px]">
+          <span className="text-[#22d3ee]">visitor</span>
+          <span className="text-[#334155]">@</span>
+          <span className="text-[#818cf8]">portfolio</span>
+          <span className="text-[#334155]"> : ~ $ </span>
+          <span className="cursor-blink text-[#334155]">_</span>
+        </p>
+      </div>
+    </div>
+  );
 }
 
 export function Hero() {
-  const typedText = useTypingEffect(ROLES)
+  const { name, role, specialisation, headlineLines, roles, tagline } = usePortfolioStore();
+  const firstName = name.split(' ')[0];
+  const typed = useTypingEffect(roles);
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
-      <HeroScene />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-accent)_0%,_transparent_60%)] opacity-15" />
-
-      <div className="relative z-10 flex w-full flex-col items-center gap-8">
-        <TerminalWindow title="portfolio@dev — zsh">
-          <BootSequence />
-
-          <div className="space-y-3 font-mono text-sm">
-            <div className="flex flex-wrap gap-1">
-              <span className="text-green-400">visitor</span>
-              <span className="text-white/40">@</span>
-              <span className="text-[var(--color-accent)]">portfolio</span>
-              <span className="text-white/40">:</span>
-              <span className="text-cyan-400">~</span>
-              <span className="text-white/40">$</span>
-              <span className="ml-2 text-white/60">about --whoami</span>
-            </div>
-
-            <div className="border-l-2 border-[var(--color-accent)]/30 pl-4">
-              <h1 className="mb-1 text-2xl font-bold tracking-tight sm:text-3xl">
-                <span className="text-[var(--color-accent)]">Hi, I'm </span>
-                <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] bg-clip-text text-transparent">
-                  Your Name
-                </span>
-              </h1>
-              <div className="h-7">
-                <p className="text-base text-white/70">
-                  <span className="font-semibold text-[var(--color-accent)]">
-                    &gt; Role:{' '}
-                  </span>
-                  <span>{typedText}</span>
-                  <span className="ml-0.5 animate-pulse text-[var(--color-accent)]">
-                    │
-                  </span>
-                </p>
-              </div>
-              <p className="mt-2 text-xs text-white/40">
-                I build digital experiences that blend creativity with clean
-                code.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-1 pt-2">
-              <span className="text-green-400">visitor</span>
-              <span className="text-white/40">@</span>
-              <span className="text-[var(--color-accent)]">portfolio</span>
-              <span className="text-white/40">:</span>
-              <span className="text-cyan-400">~</span>
-              <span className="text-white/40">$</span>
-              <span className="ml-2 animate-pulse text-white/60">_</span>
-            </div>
+    <section id="home" className="relative z-[1] flex min-h-screen items-center">
+      <div className="mx-auto flex w-full max-w-[1320px] flex-col items-center gap-12 px-6 pb-20 pt-28 sm:px-12 lg:flex-row lg:gap-20 lg:px-[72px]">
+        {/* Left column */}
+        <div className="w-full max-w-[540px] lg:w-[480px] lg:flex-none">
+          <div className="mb-9 inline-flex items-center gap-2 rounded-full border border-[rgba(16,185,129,.25)] bg-[rgba(16,185,129,.08)] px-4 py-[7px]">
+            <span
+              className="block h-2 w-2 rounded-full bg-[#10b981]"
+              style={{ animation: 'glowPulse 2s ease infinite' }}
+            />
+            <span className="font-mono text-[11px] tracking-[1px] text-[#10b981]">AVAILABLE FOR WORK</span>
           </div>
-        </TerminalWindow>
 
-        <div className="relative z-10 flex items-center gap-6">
-          {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+          <div className="mb-[18px]">
+            <p className="mb-3.5 font-mono text-[11px] tracking-[2.5px] text-[#334155]">{specialisation}</p>
+            <h1 className="text-[clamp(38px,3.2vw,52px)] font-bold leading-[1.05] tracking-[-2.5px]">
+              {headlineLines.map((line, i) => (
+                <span key={i}>
+                  <span className={i === 1 ? 'text-[var(--color-accent)]' : undefined}>{line}</span>
+                  {i < headlineLines.length - 1 && <br />}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <div className="mb-7 flex h-9 items-center font-mono text-base">
+            <span className="text-[#3b82f6]">→</span>
+            <span className="ml-2 text-[#cbd5e1]">{typed}</span>
+            <span className="cursor-blink ml-0.5 text-lg text-[var(--color-accent)]">█</span>
+          </div>
+
+          <p className="mb-11 max-w-[420px] text-base leading-[1.75] text-[var(--color-text-muted)]">
+            {tagline}
+          </p>
+
+          <div className="flex flex-wrap gap-3.5">
             <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="text-white/30 transition-colors hover:text-[var(--color-accent)]"
+              href="#projects"
+              className="whitespace-nowrap rounded-lg bg-[var(--color-accent)] px-7 py-[13px] text-sm font-semibold text-[#050a14] transition-transform hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(6,182,212,.3)]"
             >
-              <Icon size={20} />
+              View Projects
             </a>
-          ))}
+            <a
+              href="#contact"
+              className="whitespace-nowrap rounded-lg border-[1.5px] border-[rgba(6,182,212,.3)] px-7 py-3 text-sm font-medium text-[var(--color-accent)] transition-all hover:-translate-y-0.5 hover:border-[rgba(6,182,212,.7)] hover:bg-[rgba(6,182,212,.06)]"
+            >
+              Get In Touch
+            </a>
+          </div>
+        </div>
+
+        {/* Right column */}
+        <div className="relative flex min-h-[420px] w-full max-w-[540px] flex-1 items-center justify-center">
+          <FloatingShapes />
+          <TerminalCard firstName={firstName} role={role} />
         </div>
       </div>
 
-      <a
-        href="#about"
-        className="absolute bottom-8 flex animate-bounce flex-col items-center gap-1 text-white/20 transition-colors hover:text-white/50"
-        aria-label="Scroll down"
+      <div
+        aria-hidden
+        className="absolute bottom-9 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 opacity-35"
       >
-        <span className="font-mono text-[10px]">$ cd about</span>
-        <ArrowDown size={16} />
-      </a>
+        <span className="font-mono text-[10px] tracking-[2px] text-[#475569]">SCROLL</span>
+        <div className="h-10 w-px bg-gradient-to-b from-[rgba(6,182,212,.7)] to-transparent" />
+      </div>
     </section>
-  )
+  );
 }

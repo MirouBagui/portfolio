@@ -1,10 +1,15 @@
 @import 'tailwindcss';
+@import '@fontsource/jetbrains-mono/latin.css';
 
 @theme {
-  --color-bg-primary: #0a0a0a;
-  --color-text-primary: #fafafa;
-  --color-accent: #6366f1;
-  --color-accent-hover: #818cf8;
+  --color-bg-primary: #050a14;
+  --color-text-primary: #e2e8f0;
+  --color-text-muted: #64748b;
+  --color-accent: #06b6d4;
+  --color-accent-hover: #22d3ee;
+  --color-terminal-green: #10b981;
+  --color-surface: rgba(10, 16, 28, 0.85);
+  --color-border: rgba(6, 182, 212, 0.12);
 }
 
 html {
@@ -15,5 +20,91 @@ body {
   margin: 0;
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(6, 182, 212, 0.25);
+  color: #f8fafc;
+}
+
+/* Custom cursor: hide native pointer only where a precise pointer exists
+   AND motion is allowed — otherwise CustomCursor bails and we'd show no cursor. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body {
+    cursor: none;
+  }
+}
+
+@keyframes floatA {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(8deg); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px) rotate(-5deg); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-18px) scale(1.06); }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: .5; box-shadow: 0 0 6px rgba(16, 185, 129, .3); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(16, 185, 129, .7); }
+}
+@keyframes scanline {
+  from { top: 0; }
+  to { top: 100%; }
+}
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes liveDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .2; transform: scale(.75); }
+}
+@keyframes dataBlip {
+  0%, 100% { opacity: .6; }
+  55% { opacity: 1; }
+}
+@keyframes connGlow {
+  0%, 100% { opacity: .25; background: rgba(16, 185, 129, .3); }
+  55% { opacity: 1; background: rgba(16, 185, 129, .7); }
+}
+
+.cursor-blink {
+  animation: blink 1.06s steps(1) infinite;
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation: none !important;
+  }
+}
+
+:where(code, kbd, pre, samp, .font-mono) {
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

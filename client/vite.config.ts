@@ -10,8 +10,6 @@ export default defineConfig({
       '/api': 'http://localhost:3000',
     },
   },
-  build: {
-    outDir: '../server/dist/public',
-    emptyOutDir: true,
-  },
+  // Builds to client/dist; `npm run build:all` at the root copies it into
+  // server/dist/public afterwards so the live site only sees a fast swap.
 })
