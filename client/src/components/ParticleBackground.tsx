@@ -1,95 +1,82 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
-interface Particle {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  size: number
-  alpha: number
+interface Star {
+  x: number;
+  y: number;
+  r: number;
+  alpha: number;
+  dir: number;
+  speed: number;
 }
 
-export function ParticleBackground({ quantity = 60 }: { quantity?: number }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mouseRef = useRef({ x: -1000, y: -1000 })
-  const particlesRef = useRef<Particle[]>([])
+/** Faint blueprint grid + slowly twinkling stars (design background). */
+export function ParticleBackground({ quantity = 90 }: { quantity?: number }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
 
-    const onMouse = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
+    const stars: Star[] = Array.from({ length: quantity }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.3 + 0.2,
+      alpha: Math.random() * 0.5 + 0.1,
+      dir: Math.random() > 0.5 ? 1 : -1,
+      speed: Math.random() * 0.004 + 0.002,
+    }));
 
-    const onResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
+    let raf = 0;
+    let last = 0;
+    const draw = (t: number) => {
+      raf = requestAnimationFrame(draw);
+      if (t - last < 40) return; // ~25fps cap
+      last = t;
 
-    onResize()
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const particles: Particle[] = []
-    for (let i = 0; i < quantity; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.4 + 0.1,
-      })
-    }
-    particlesRef.current = particles
-
-    let animId: number
-
-    function animate() {
-      if (!canvas || !ctx) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      for (const p of particles) {
-        const dx = mouseRef.current.x - p.x
-        const dy = mouseRef.current.y - p.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 200) {
-          p.vx -= dx / 20000
-          p.vy -= dy / 20000
-        }
-
-        p.vx *= 0.99
-        p.vy *= 0.99
-        p.x += p.vx
-        p.y += p.vy
-
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(99, 102, 241, ${p.alpha})`
-        ctx.fill()
+      const step = 64;
+      ctx.strokeStyle = 'rgba(59,130,246,0.035)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += step) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < canvas.height; y += step) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
       }
 
-      animId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    window.addEventListener('mousemove', onMouse, { passive: true })
-    window.addEventListener('resize', onResize, { passive: true })
+      for (const s of stars) {
+        s.alpha += s.dir * s.speed;
+        if (s.alpha > 0.65) s.dir = -1;
+        if (s.alpha < 0.08) s.dir = 1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        ctx.fill();
+      }
+    };
+    raf = requestAnimationFrame(draw);
 
     return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('mousemove', onMouse)
-      window.removeEventListener('resize', onResize)
-    }
-  }, [quantity])
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+    };
+  }, [quantity]);
 
   return (
     <canvas
@@ -97,5 +84,5 @@ export function ParticleBackground({ quantity = 60 }: { quantity?: number }) {
       className="pointer-events-none fixed inset-0 -z-10"
       aria-hidden="true"
     />
-  )
+  );
 }

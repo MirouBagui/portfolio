@@ -1,39 +1,44 @@
-import { Mail } from 'lucide-react'
-import { useScrollReveal } from '../hooks/useScrollReveal'
-import { usePortfolioStore } from '../stores/portfolioStore'
+import { usePortfolioStore } from '../stores/portfolioStore';
 
 export function Contact() {
-  const ref = useScrollReveal<HTMLDivElement>()
-  const email = usePortfolioStore((s) =>
-    s.socials.find((s) => s.label === 'Email'),
-  )
-
-  if (!email) return null
+  const { socials } = usePortfolioStore();
+  const email = socials.find((s) => s.label === 'Email');
+  const links = socials.filter((s) => s.label !== 'Email');
 
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className="scroll-reveal flex min-h-screen flex-col items-center justify-center px-4 py-24 scroll-mt-24"
-    >
-      <div className="max-w-lg text-center">
-        <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
-          <span className="text-[var(--color-accent)]">//</span> contact
+    <section id="contact" className="relative z-[1] scroll-mt-16 px-6 py-[140px] sm:px-12 lg:px-[72px]">
+      <div className="mx-auto max-w-[640px] text-center">
+        <p className="mb-[18px] font-mono text-xs tracking-[2.5px] text-[var(--color-accent)]">// CONTACT</p>
+        <h2 className="mb-4 text-[clamp(36px,4vw,58px)] font-bold leading-[1.1] tracking-[-2px]">
+          Let's build fast—but build it
+          <br />
+          <span className="text-[var(--color-accent)]">unshakeable.</span>
         </h2>
-        <p className="mb-8 text-white/60">
-          Working on something interesting? Let's talk.
+        <p className="mx-auto mb-12 max-w-[460px] text-base leading-[1.75] text-[#475569]">
+          Open to senior full-stack and real-time systems roles. Let's talk architecture, scale, and speed.
         </p>
-
-        <div className="flex justify-center">
-          <a
-            href={email.href}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-6 py-3 font-medium text-white transition-all hover:bg-[var(--color-accent-hover)]"
-          >
-            <Mail size={18} />
-            {email.href.replace('mailto:', '')}
-          </a>
+        <div className="flex flex-wrap justify-center gap-3.5">
+          {email && (
+            <a
+              href={email.href}
+              className="rounded-lg bg-[var(--color-accent)] px-8 py-3.5 text-[15px] font-semibold text-[#050a14] transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_32px_rgba(6,182,212,.35)]"
+            >
+              Send Email
+            </a>
+          )}
+          {links.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg border-[1.5px] border-[rgba(6,182,212,.25)] px-8 py-[13px] text-[15px] font-medium text-[#7dd3fc] transition-all hover:-translate-y-0.5 hover:border-[rgba(6,182,212,.6)] hover:bg-[rgba(6,182,212,.05)]"
+            >
+              {s.label}
+            </a>
+          ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

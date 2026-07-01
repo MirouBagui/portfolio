@@ -6,13 +6,12 @@ import { NotFound } from "./pages/NotFound";
 import { ProjectDetail } from "./pages/ProjectDetail";
 import { projectLoader } from "./pages/projectDetailLoader";
 import { Home } from "./pages/Home";
-import { homeLoader } from "./pages/homeLoader";
 
 export const router = createBrowserRouter([
     {
         element: <RootLayout />,
         children: [
-            { index: true, path: "/", element: <Home />, loader: homeLoader },
+            { index: true, path: "/", element: <Home /> },
             {
                 path: 'projects/:id',
                 element: <ProjectDetail />,
