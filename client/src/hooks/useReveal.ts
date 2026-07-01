@@ -12,17 +12,21 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(delay = 0) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let timer: ReturnType<typeof setTimeout>;
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
-          setTimeout(() => setShown(true), delay);
+          timer = setTimeout(() => setShown(true), delay);
           obs.unobserve(el);
         }
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    return () => {
+      clearTimeout(timer);
+      obs.disconnect();
+    };
   }, [delay]);
 
   return [ref, shown] as const;
