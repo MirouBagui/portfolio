@@ -10,6 +10,7 @@
     "start:prod": "node dist/main"
   },
   "dependencies": {
-    "@nestjs/config": "^4.0.4"
+    "@nestjs/config": "^4.0.4",
+    "helmet": "^8.2.0"
   }
 }
