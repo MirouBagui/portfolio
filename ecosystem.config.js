@@ -11,7 +11,8 @@ module.exports = {
       max_memory_restart: '300M',
       env: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        // PORT intentionally not set here — the root .env (see .env.example)
+        // owns it; dotenv can't override a value PM2 already injected.
       },
     },
   ],

@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npm run build --prefix server",
+    "build": "npm run build:all",
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
-    "build:all": "npm run build --prefix server && npm run build --prefix client",
+    "build:all": "npm run build --prefix client && npm run build --prefix server && rm -rf server/dist/public && cp -r client/dist server/dist/public",
     "format": "prettier --write \"server/src/**/*.ts\" \"server/test/**/*.ts\"",
     "start": "npm start --prefix server",
     "start:dev": "npm run start:dev --prefix server",
@@ -23,9 +23,11 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/serve-static": "^5.0.5",
+    "helmet": "^8.2.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

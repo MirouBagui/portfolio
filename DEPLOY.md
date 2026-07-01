@@ -5,13 +5,15 @@ React client from `server/dist/public` on `PORT` (default 3000). Caddy sits in
 front for HTTPS.
 
 **What changed since the first draft**
-- GitHub module + token **removed** — there is no secret to manage. `.env` is now
-  optional (only `PORT`, which `ecosystem.config.js` already sets).
+- GitHub module + token **removed** — there is no secret to manage. `.env` is
+  optional (only `PORT`; PM2 no longer sets it, so `.env` actually wins).
 - Server sends **Helmet** security headers (CSP/HSTS) — HSTS only takes effect once
   you're on HTTPS (Caddy handles that).
-- Client bundle is **obfuscated** automatically by `npm run build` (build-only).
-- Build order matters: `nest build` wipes `dist/`, so **server builds first, then
-  the client** writes into `dist/public`. `npm run build:all` does this for you.
+- Hashed assets get `immutable` cache headers; missing assets 404 instead of
+  falling back to index.html (protects stale clients after a deploy).
+- Build order: `npm run build:all` builds the **client first** (into `client/dist`,
+  site stays up), then the server (wipes `dist/`, seconds), then copies the client
+  into `dist/public`. Downtime window is the copy, not the whole build.
 
 ---
 
@@ -19,7 +21,7 @@ front for HTTPS.
 ```bash
 cd /home/bagui/Dev/portfolio
 git add -A
-git commit -m "Deploy: drop github module, add helmet + obfuscation"
+git commit -m "Deploy: drop github module, add helmet"
 # create repo on github.com (MirouBagui/portfolio), then:
 git remote add origin git@github.com:MirouBagui/portfolio.git
 git push -u origin terminal-split-pane     # or merge to main and push main
@@ -65,7 +67,7 @@ sudo apt-get update && sudo apt-get install -y caddy
 cd ~ && git clone git@github.com:MirouBagui/portfolio.git
 cd portfolio && git checkout terminal-split-pane
 npm run install:all        # root + server + client deps
-npm run build:all          # server, then obfuscated client → server/dist/public
+npm run build:all          # client → server → copy into server/dist/public
 pm2 start ecosystem.config.js
 pm2 save
 pm2 startup                # run the sudo line it prints (restart on reboot)
@@ -93,6 +95,6 @@ pm2 reload portfolio
 ```
 
 **Notes**
-- ARM (Ampere A1): give ≥1 GB RAM or add a swapfile so the Vite + obfuscation build doesn't OOM.
+- ARM (Ampere A1): give ≥1 GB RAM or add a swapfile so the Vite build doesn't OOM.
 - The CSP allows Google Fonts; if you self-host fonts later, tighten `font-src`/`style-src` in `server/src/main.ts`.
 - `dig` not resolving yet? Wait for IONOS DNS propagation (minutes, up to a few hours) before reloading Caddy, or the cert request will fail.
