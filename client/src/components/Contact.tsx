@@ -2,8 +2,10 @@ import { usePortfolioStore } from '../stores/portfolioStore';
 
 export function Contact() {
   const { socials } = usePortfolioStore();
-  const email = socials.find((s) => s.label === 'Email');
-  const links = socials.filter((s) => s.label !== 'Email');
+  // Key off the href scheme, not the display label — renaming a label in
+  // the config must not silently demote the primary CTA.
+  const email = socials.find((s) => s.href.startsWith('mailto:'));
+  const links = socials.filter((s) => !s.href.startsWith('mailto:'));
 
   return (
     <section id="contact" className="relative z-[1] scroll-mt-16 px-6 py-[140px] sm:px-12 lg:px-[72px]">

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { match } from 'ts-pattern';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { usePortfolioStore } from '../stores/portfolioStore';
@@ -25,6 +25,7 @@ function scrollToHash(to: string) {
 
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { name } = usePortfolioStore();
   const first = name.split(' ')[0];
   const { direction, y } = useScrollDirection();
@@ -34,7 +35,8 @@ export function Navbar() {
     if (!isHashLink(to)) return;
     if (location.pathname === '/') {
       e.preventDefault();
-      window.history.replaceState(null, '', to);
+      // Go through the router so location.hash (and aria-current) update.
+      navigate(to, { replace: true });
       scrollToHash(to);
     }
   }

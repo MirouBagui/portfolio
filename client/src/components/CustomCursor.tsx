@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Trailing ring + dot cursor from the design. Only mounts where a precise
@@ -7,35 +7,63 @@ import { useEffect, useRef } from 'react';
 export function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
+
+  // Track the same media queries the CSS `cursor: none` rule uses, live —
+  // otherwise toggling reduced-motion after load hides the native cursor
+  // with no JS cursor to replace it.
+  useEffect(() => {
+    const fine = window.matchMedia('(pointer: fine)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setEnabled(fine.matches && !reduced.matches);
+    update();
+    fine.addEventListener('change', update);
+    reduced.addEventListener('change', update);
+    return () => {
+      fine.removeEventListener('change', update);
+      reduced.removeEventListener('change', update);
+    };
+  }, []);
 
   useEffect(() => {
-    const fine = window.matchMedia('(pointer: fine)').matches;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!fine || reduced) return;
+    if (!enabled) return;
 
     const ring = ringRef.current;
     const dot = dotRef.current;
     if (!ring || !dot) return;
 
     let mx = -100, my = -100, rx = -100, ry = -100;
+    let raf = 0;
+    let running = false;
+
+    const tick = () => {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      // Park the loop once the ring has converged; onMove restarts it.
+      if (Math.abs(mx - rx) > 0.2 || Math.abs(my - ry) > 0.2) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
+    };
+    const start = () => {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
+    };
 
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
       dot.style.left = mx + 'px';
       dot.style.top = my + 'px';
+      start();
     };
     document.addEventListener('mousemove', onMove, { passive: true });
-
-    let raf = 0;
-    const tick = () => {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
+    start();
 
     const grow = () => {
       ring.style.width = '52px';
@@ -62,7 +90,7 @@ export function CustomCursor() {
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <>

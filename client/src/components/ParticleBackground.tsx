@@ -19,29 +19,31 @@ export function ParticleBackground({ quantity = 90 }: { quantity?: number }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const makeStars = (): Star[] =>
+      Array.from({ length: quantity }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.3 + 0.2,
+        alpha: Math.random() * 0.5 + 0.1,
+        dir: Math.random() > 0.5 ? 1 : -1,
+        speed: Math.random() * 0.004 + 0.002,
+      }));
+    let stars = makeStars();
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      // Re-scatter so a grown viewport isn't left with empty areas.
+      stars = makeStars();
     };
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    const stars: Star[] = Array.from({ length: quantity }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.3 + 0.2,
-      alpha: Math.random() * 0.5 + 0.1,
-      dir: Math.random() > 0.5 ? 1 : -1,
-      speed: Math.random() * 0.004 + 0.002,
-    }));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let raf = 0;
     let last = 0;
-    const draw = (t: number) => {
-      raf = requestAnimationFrame(draw);
-      if (t - last < 40) return; // ~25fps cap
-      last = t;
-
+    const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const step = 64;
@@ -70,7 +72,18 @@ export function ParticleBackground({ quantity = 90 }: { quantity?: number }) {
         ctx.fill();
       }
     };
-    raf = requestAnimationFrame(draw);
+    const draw = (t: number) => {
+      raf = requestAnimationFrame(draw);
+      if (t - last < 40) return; // ~25fps cap
+      last = t;
+      render();
+    };
+    if (reduced) {
+      // Static frame only — CSS can't stop a canvas loop.
+      render();
+    } else {
+      raf = requestAnimationFrame(draw);
+    }
 
     return () => {
       cancelAnimationFrame(raf);

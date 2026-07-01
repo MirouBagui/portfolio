@@ -6,8 +6,8 @@ import { usePortfolioStore } from '../stores/portfolioStore';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 export function Home() {
-  const { name } = usePortfolioStore();
-  usePageMeta(`${name} — Full Stack Developer`);
+  const { name, config } = usePortfolioStore();
+  usePageMeta(`${name} — ${config.meta.role}`);
 
   return (
     <>

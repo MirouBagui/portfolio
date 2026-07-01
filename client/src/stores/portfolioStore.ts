@@ -3,11 +3,13 @@ import { create } from 'zustand';
 import config from '../portfolio.config';
 import type { Accent, SkillCategoryConfig } from '../portfolio.config';
 
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number; }>> = {
-  GitHub: Code,
-  LinkedIn: Globe,
-  Email: Mail,
-};
+// Icon derived from the href, not the display label, so config renames
+// can't silently swap icons.
+function iconFor(href: string): React.ComponentType<{ size?: number; }> {
+  if (href.startsWith('mailto:')) return Mail;
+  if (href.includes('github.com')) return Code;
+  return Globe;
+}
 
 export interface Project {
   id: string;
@@ -27,11 +29,9 @@ export interface PortfolioState {
   headlineLines: string[];
   tagline: string;
   roles: string[];
-  skills: string[];
   skillCategories: SkillCategoryConfig[];
   projects: Project[];
   socials: { label: string; href: string; icon: React.ComponentType<{ size?: number; }>; }[];
-  aboutParagraphs: string[];
   config: typeof config;
 }
 
@@ -42,13 +42,11 @@ export const usePortfolioStore = create<PortfolioState>(() => ({
   headlineLines: config.meta.headlineLines,
   tagline: config.meta.tagline,
   roles: config.meta.roles,
-  skills: config.skills,
   skillCategories: config.skillCategories,
   projects: config.projects.map((p) => ({ ...p })),
   socials: config.socials.map((s) => ({
     ...s,
-    icon: ICON_MAP[s.label] || Code,
+    icon: iconFor(s.href),
   })),
-  aboutParagraphs: config.aboutParagraphs,
   config,
 }));

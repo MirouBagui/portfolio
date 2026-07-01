@@ -13,7 +13,3 @@ export async function projectLoader({ params }: LoaderFunctionArgs) {
   if (!project) throw new Response('Not Found', { status: 404 })
   return project
 }
-
-export function getProjectTech(project: Project): string[] {
-  return project.tech ?? []
-}

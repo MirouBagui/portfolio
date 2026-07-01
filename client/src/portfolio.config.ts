@@ -31,10 +31,6 @@ export interface SocialConfig {
   href: string;
 }
 
-export interface SectionConfig {
-  display: boolean;
-}
-
 export interface PortfolioConfig {
   meta: {
     name: string;
@@ -47,13 +43,6 @@ export interface PortfolioConfig {
     tagline: string;
     roles: string[];
     description: string;
-  };
-  sections: {
-    hero: SectionConfig;
-    skills: SectionConfig;
-    projects: SectionConfig & { terminalPane: boolean; };
-    contact: SectionConfig;
-    blog: SectionConfig;
   };
   skills: string[];
   skillCategories: SkillCategoryConfig[];
@@ -79,13 +68,6 @@ const config: PortfolioConfig = {
       'System Design',
     ],
     description: 'Full Stack Developer — real-time systems, DevOps, Web Security',
-  },
-  sections: {
-    hero: { display: true },
-    skills: { display: true },
-    projects: { display: true, terminalPane: true },
-    contact: { display: true },
-    blog: { display: true },
   },
   skills: [
     'TypeScript',

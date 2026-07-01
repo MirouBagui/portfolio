@@ -311,7 +311,13 @@ function FreelanceVisual() {
 
 export function Projects() {
   const { projects } = usePortfolioStore();
-  const byId = (id: string) => projects.find((p) => p.id === id);
+  const byId = (id: string) => {
+    const p = projects.find((p) => p.id === id);
+    // ponytail: cards are hand-designed per id; warn loudly instead of
+    // silently dropping a card when the config is renumbered.
+    if (!p) console.warn(`Projects: no project with id "${id}" in portfolio.config`);
+    return p;
+  };
   const featured = byId('1');
   const aia = byId('3');
   const ke = byId('2');

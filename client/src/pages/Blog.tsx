@@ -2,12 +2,14 @@ import { useLoaderData } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 import type { BlogPost } from './blogLoader'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { usePortfolioStore } from '../stores/portfolioStore'
 
 export function Blog() {
   const posts = useLoaderData() as BlogPost[]
+  const { name } = usePortfolioStore()
   const [activeTag, setActiveTag] = useState<string | null>(null)
   usePageMeta(
-    'Blog — Amir SAOUDI',
+    `Blog — ${name}`,
     'Thoughts on software engineering, real-time systems, and DevOps.',
   )
 
