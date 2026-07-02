@@ -4,20 +4,20 @@
 
 ```
 npm run start:dev   # watch mode (primary dev loop)
-npm run build        # nest build → dist/
-npm run start:prod   # node dist/main
-npm run test         # unit tests (Jest, rootDir=src, *.spec.ts)
-npm run test:e2e     # e2e tests (Jest, config=test/jest-e2e.json, *.e2e-spec.ts)
+npm run build        # build client + server, copy client/dist → server/dist/public
+npm run start:prod   # node server/dist/main
+npm run test         # unit tests (Jest, rootDir=server, *.spec.ts)
+npm run test:e2e     # e2e tests (Jest, config=server/test/jest-e2e.json, *.e2e-spec.ts)
 npm run lint         # eslint --fix (flat config, eslint.config.mjs)
 npm run format       # prettier --write
 ```
 
 ## Architecture
 
-- **Entry**: `src/main.ts` → listens on `PORT` or `3000`
-- **Module**: `src/app.module.ts` (single module, no imports yet)
-- **Build output**: `dist/` (deleted on rebuild via `nest-cli.json`)
-- Single app, no monorepo, no database, no external services
+- **Client**: `client/` — React 19 + Vite + Tailwind v4 + Three.js SPA
+- **Server entry**: `server/src/main.ts` → listens on `PORT` or `3000`, serves the built client from `server/dist/public`
+- **Module**: `server/src/app.module.ts`
+- Two packages (`client/`, `server/`) driven by root `package.json` scripts, no database, no external services
 
 ## Available skills
 
@@ -31,7 +31,7 @@ npm run format       # prettier --write
 - **TypeScript**: `module: "nodenext"`, `moduleResolution: "nodenext"` — use `import`/`export` ESM syntax in source, but compiled output runs as CommonJS via `ts-jest`
 - **ESLint**: flat config (`eslint.config.mjs`) with `@typescript-eslint/recommendedTypeChecked`; `no-explicit-any` is off, `no-floating-promises` and `no-unsafe-argument` are warnings
 - **Prettier**: `singleQuote: true`, `trailingComma: "all"`, ESLint rule enforces `endOfLine: "auto"` (Windows/Unix newline tolerant)
-- **Jest**: unit tests use `package.json` jest config with `rootDir: "src"`; e2e tests use separate `test/jest-e2e.json` with `rootDir: "."`
+- **Jest**: unit tests use root `package.json` jest config with `rootDir: "server"`; e2e tests use separate `server/test/jest-e2e.json`
 
 ## Design System
 

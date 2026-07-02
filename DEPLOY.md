@@ -24,7 +24,7 @@ git add -A
 git commit -m "Deploy: drop github module, add helmet"
 # create repo on github.com (MirouBagui/portfolio), then:
 git remote add origin git@github.com:MirouBagui/portfolio.git
-git push -u origin terminal-split-pane     # or merge to main and push main
+git push -u origin main
 ```
 
 ## 1 · OCI — open ports (TWO firewall layers)
@@ -65,7 +65,7 @@ sudo apt-get update && sudo apt-get install -y caddy
 ## 4 · Deploy the app
 ```bash
 cd ~ && git clone git@github.com:MirouBagui/portfolio.git
-cd portfolio && git checkout terminal-split-pane
+cd portfolio
 npm run install:all        # root + server + client deps
 npm run build:all          # client → server → copy into server/dist/public
 pm2 start ecosystem.config.js
