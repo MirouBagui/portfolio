@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, resolve } from 'path';
+import type { ServerResponse } from 'http';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { join, resolve } from 'path';
       // otherwise stale clients get HTML for JS and white-screen silently.
       exclude: ['/assets/{*rest}'],
       serveStaticOptions: {
-        setHeaders: (res, path) => {
+        setHeaders: (res: ServerResponse, path: string) => {
           // Hashed bundles are immutable; index.html must revalidate so
           // deploys propagate.
           res.setHeader(
