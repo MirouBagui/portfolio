@@ -33,6 +33,31 @@ lerna-debug.log*
 .vercel
 
 # temp / runtime
+
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# local agent config
+CLAUDE.local.md
+
+# temp directory
 .temp
 .tmp
 pids
