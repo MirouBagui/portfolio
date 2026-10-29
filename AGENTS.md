@@ -43,3 +43,29 @@ See [DESIGN.md](./DESIGN.md) for the full system. Key tokens:
 - **Fonts**: Inter (body/headings), JetBrains Mono (terminal UI, code, tags)
 - **Motion**: terminal-fade-in `400ms ease-out`, hover transitions `150ms ease-in-out`, no scroll-jacking
 - **Layout**: Terminal split-pane hero (30/70), 2-column project grid, fixed navbar with backdrop-blur
+
+
+## Agent skills
+
+Skills installed via `npx skills@latest add mattpocock/skills`. Run once per session if needed.
+
+- **[issue-tracker](docs/agents/issue-tracker.md)** — GitHub Issues on `MirouBagui/portfolio` (public); `gh` commands and wayfinding operations (map, sub-issues, blocking)
+- **[triage-labels](docs/agents/triage-labels.md)** — five canonical triage states used by `/triage`
+- **[domain](CONTEXT.md)** — shared glossary and key files; read this before touching any component
+- **ADRs** — `docs/adr/` — architectural decisions; create one when making a non-obvious design choice
+
+### Available skills (invoke by name)
+
+| Skill | When to use |
+|-------|-------------|
+| `/grill-with-docs` | Before starting any feature — sharpens plan, updates CONTEXT.md |
+| `/grill-me` | Stress-test a plan before coding |
+| `/to-spec` | Turn conversation into a spec |
+| `/to-tickets` | Break a spec into GitHub issues |
+| `/implement` | Build from an existing spec or issue files |
+| `/tdd` | Red-green-refactor loop |
+| `/code-review` | Review changes vs main |
+| `/diagnosing-bugs` | Disciplined debug loop |
+| `/improve-codebase-architecture` | Scan for deepening opportunities |
+| `/triage` | Move GitHub issues through triage states |
+| `/wayfinder` | Plan large multi-session work |
