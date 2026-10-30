@@ -76,8 +76,8 @@ Base unit: 4px (Tailwind defaults).
 | Card grid gap | `gap-5` (projects), `gap-7` (skills) |
 
 ### Page Structure
-- **Navbar:** fixed, `backdrop-blur-md`, bottom border. It hides on scroll-down and shows on scroll-up (`useScrollDirection`). Links: Home, Skills, Projects (hash links), Blog. The active link has `aria-current="page"`.
-- **Home** (`/`) is a single scroll page: Hero (`#home`) → Skills (`#skills`) → Projects (`#projects`) → Contact (`#contact`) → Footer.
+- **Navbar:** fixed, `backdrop-blur-md`, bottom border. It hides on scroll-down and shows on scroll-up (`useScrollDirection`). Links: Home, Skills, Projects (hash links), Architecture, Blog, Services (ADR-0006; Architecture and Services not built yet). The active link has `aria-current="page"`: hash links match pathname + hash exactly, page links match by pathname. Below `sm` the links sit behind a `$ menu` toggle (see Responsive).
+- **Home** (`/`) is a single scroll page: Hero (`#home`) → Skills (`#skills`) → Projects (`#projects`) → Architecture teaser (`#architecture`, ADR-0006; not built yet) → Contact (`#contact`) → Footer.
 - **Other routes:** `/projects/:id` (project detail), `/blog` (placeholder), `*` (404).
 - **Background:** `ParticleBackground` is a 2D canvas behind all content, and it renders statically under reduced motion. On pointer-fine devices, `CustomCursor` replaces the native cursor.
 
@@ -117,6 +117,11 @@ A category card with a title, per-skill progress bars (`TelemetryBar`, width ani
 - **Width:** fits 360px, about 40 monospace columns, with no sideways scroll. Shorten long labels or move them to their own line.
 - **Motion:** lines appear once when the diagram scrolls into view, then it stays still; the cursor stops once the trace finishes. With reduced motion, the full trace shows immediately.
 - **Accessibility:** the trace is `aria-hidden`, and `diagramText` is the accessible version, in a `<details>` labelled `$ cat diagram.txt` under the trace.
+
+### Architecture teaser (home, ADR-0006)
+- A `<section id="architecture">` between Projects and Contact, with the standard section header: `// ARCHITECTURE`, the architecture page's headline question as the h2, and a muted subtitle.
+- Three rows in `caseStudies` order. Each row shows `NN // TAG`, the title and the lead result figure (the first `result.figures` key, read from the `figures` map), and the whole row links to `/architecture#<id>`. A closing link goes to `/architecture`.
+- No diagram, and no import from the diagram registry, so diagram code stays off the home bundle.
 
 ### Architecture page (results first, ADR-0005)
 - **Header:** a `// ARCHITECTURE` label, a headline question, a one-line intro, and tag chips that link to `#<id>` (rounded-full, border, mono; hover in accent).
@@ -159,7 +164,7 @@ A category card with a title, per-skill progress bars (`TelemetryBar`, width ani
 | `lg` 1024px+ | Two-column hero, featured card splits into two panes, three-column project grid, `px-[72px]` gutter |
 | Beyond | Constrained by `max-w-[1200px]`/`[1320px]`, no scaling past a comfortable reading width |
 
-Navbar: the same four links at every width, with no hamburger menu.
+Navbar (ADR-0006): from `sm` up every link is inline. Below `sm` they sit behind a mono `$ menu` toggle (`aria-expanded`, `aria-controls`) that opens a full-width list with rows at least 44px tall. The list closes on navigation, on Escape (focus returns to the toggle), and when the viewport grows past `sm`. Live: four inline links at every width, no toggle (they only just fit at 360px; a fifth link overflows).
 
 ---
 

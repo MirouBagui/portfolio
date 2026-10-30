@@ -16,6 +16,6 @@
 
 ## Consequences
 
-- The section ids are a public URL contract. The home-page teaser may link to `/architecture#<id>`. Hash scrolling already works through `useHashScroll` in `RootLayout`.
+- The section ids are a public URL contract. The home-page teaser may link to `/architecture#<id>`. *Amended (#14): ADR-0006 settles that each teaser row links to its section id.* Hash scrolling already works through `useHashScroll` in `RootLayout`.
 - The pinned diagram assumes a trace is no taller than the problem and decisions beside it. The CI/CD trace, the tallest at about 18 lines, fits at 1440×1000. Check it again once the copy pass is done.
 - The headline replaces the source document's "Architecture" title and emoji header. Final wording belongs to the voice/copy pass.

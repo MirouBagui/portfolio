@@ -19,7 +19,8 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **faint text** | `--color-text-faint` — below AA; allowed only on `aria-hidden` decorative text (ADR-0003) |
 | **project** | One work-history entry (employer or freelance) in portfolio config, shown as a card under "Projects & Experience". _Avoid_ for case studies |
 | **case study** | One architecture write-up — problem, key decisions, diagram, result; shown result-first on the page (ADR-0005). Three exist, ordered pipeline → CI/CD → migration. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
-| **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
+| **architecture page** | The `/architecture` page that hosts every case study; reached from the nav (`Architecture`, after Projects) and the home-page teaser only — no project card links in (ADR-0001, ADR-0006) |
+| **architecture teaser** | The home-page section `#architecture` between Projects and Contact: one row per case study (`NN // TAG`, title, lead figure) linking to `/architecture#<id>`; no diagram (ADR-0006). _Avoid_: banner, preview |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
 | **case-study tag** | The one-word focus of a case study: Performance, Reliability or Architect. Used as the section label and the header chip (ADR-0005). _Avoid_: category |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
@@ -29,7 +30,8 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **server** | `server/` — NestJS app, built with `nest-cli`, serves the built client from `dist/public` |
 | **client** | `client/` — React 19 Vite SPA |
 | **CRT scanline** | CSS `::after` repeating-gradient overlay on terminal panes — subtle scanline effect |
-| **hash link** | Nav links starting with `/#` that scroll to sections on the home page |
+| **hash link** | Nav links starting with `/#` that scroll to sections on the home page; active only on an exact pathname + hash match. Page links match by pathname (ADR-0006) |
+| **nav menu** | The `$ menu` toggle that holds the nav links below `sm` (640px) (ADR-0006) |
 | **page meta** | `usePageMeta` hook — sets `document.title` for each page |
 | **useReveal** | Hook for IntersectionObserver-based fade-in on scroll |
 
