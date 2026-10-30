@@ -14,13 +14,15 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **portfolioStore** | `client/src/stores/portfolioStore.ts` — Zustand store that exposes config to all components |
 | **RootLayout** | `client/src/layouts/RootLayout.tsx` — wraps every page; renders Navbar + Outlet + Footer |
 | **design system** | `DESIGN.md` at repo root — canonical token spec (colours, typography, spacing, motion) |
-| **terminal aesthetic** | The site's visual identity: dark bg `#0a0a0a`, indigo accent `#6366f1`, JetBrains Mono for UI chrome, `$` prompts, `├──` tree notation |
+| **terminal aesthetic** | The site's visual identity: dark bg `#050a14`, cyan accent `#06b6d4`, Space Grotesk prose + JetBrains Mono for UI chrome, `$` prompts, `├──` tree notation (ADR-0003) |
+| **status colour** | `--color-status-pass` / `--color-status-fail` — mean pass/fail only, always beside a text label (ADR-0003) |
+| **faint text** | `--color-text-faint` — below AA; allowed only on `aria-hidden` decorative text (ADR-0003) |
 | **project** | One work-history entry (employer or freelance) in portfolio config, shown as a card under "Projects & Experience". _Avoid_ for case studies |
 | **case study** | One architecture write-up — problem, key decisions, diagram, result. Three exist. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
 | **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
-| **accent** | One of `cyan`, `blue`, `green`, `violet`, `orange` — per-project colour variant |
+| **accent** | Two senses: the site accent (`--color-accent`, cyan, the sole interactive colour) and a **project hue** — one of `cyan`, `blue`, `green`, `violet`, `orange` in `accents.ts`, card identity only, never on `/architecture` (ADR-0003) |
 | **section comment** | `// section-name` heading style used in UI to evoke terminal comments |
 | **server** | `server/` — NestJS app, built with `nest-cli`, serves the built client from `dist/public` |
 | **client** | `client/` — React 19 Vite SPA |
