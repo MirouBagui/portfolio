@@ -15,5 +15,5 @@ Each case-study diagram on `/architecture` is drawn as terminal output: line-dra
 ## Consequences
 
 - Each diagram is a hand-written character layout, so connectors must line up by column count. Changing a label means re-aligning its line. That's acceptable for three static diagrams.
-- How `diagramText` is presented (always visible, or in a collapsible block) is still the open accessibility question on map #8. The prototype's screen-reader-only caption doesn't settle it.
+- How `diagramText` is presented (always visible, or in a collapsible block) is still the open accessibility question on map #8. The prototype's screen-reader-only caption doesn't settle it. *Amended (#13): ADR-0005 settles it with a `<details>` block labelled `$ cat diagram.txt` under the trace.*
 - Figures in a trace come from the `figures` map by key (ADR-0002), never as literals.

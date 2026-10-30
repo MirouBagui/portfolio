@@ -116,7 +116,13 @@ A category card with a title, per-skill progress bars (`TelemetryBar`, width ani
 - **Segment roles and tokens:** node names in `text-primary`, sub-labels in muted, figures in `accent-hover` (from the `figures` map), and status in `status-pass`/`status-fail` with a `✓`/`✗` label.
 - **Width:** fits 360px, about 40 monospace columns, with no sideways scroll. Shorten long labels or move them to their own line.
 - **Motion:** lines appear once when the diagram scrolls into view, then it stays still; the cursor stops once the trace finishes. With reduced motion, the full trace shows immediately.
-- **Accessibility:** the trace is `aria-hidden`, and `diagramText` is the accessible version.
+- **Accessibility:** the trace is `aria-hidden`, and `diagramText` is the accessible version, in a `<details>` labelled `$ cat diagram.txt` under the trace.
+
+### Architecture page (results first, ADR-0005)
+- **Header:** a `// ARCHITECTURE` label, a headline question, a one-line intro, and tag chips that link to `#<id>` (rounded-full, border, mono; hover in accent).
+- **Case-study section:** full width with a top border. Its head row has `NN // TAG` above the title and role line on the left, and the result figures in large mono (`clamp(36px,4.5vw,60px)`) on the right.
+- **Body (desktop):** two columns. The trace is pinned in the left column (`max 460px`, sticky `top-24`); the problem (17px, primary) and decisions run on the right. On a phone they stack in this order: figures, trace, problem, decisions.
+- **Order:** pipeline → CI/CD → migration. Each section has a stable `id` (`event-pipeline`, `cicd-pipeline`, `strangler-fig`) and scrolls with `scroll-mt` so the fixed navbar doesn't cover it.
 
 ---
 

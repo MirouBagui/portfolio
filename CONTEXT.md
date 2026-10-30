@@ -18,9 +18,10 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **status colour** | `--color-status-pass` / `--color-status-fail` — mean pass/fail only, always beside a text label (ADR-0003) |
 | **faint text** | `--color-text-faint` — below AA; allowed only on `aria-hidden` decorative text (ADR-0003) |
 | **project** | One work-history entry (employer or freelance) in portfolio config, shown as a card under "Projects & Experience". _Avoid_ for case studies |
-| **case study** | One architecture write-up — problem, key decisions, diagram, result. Three exist. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
+| **case study** | One architecture write-up — problem, key decisions, diagram, result; shown result-first on the page (ADR-0005). Three exist, ordered pipeline → CI/CD → migration. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
 | **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
+| **case-study tag** | The one-word focus of a case study: Performance, Reliability or Architect. Used as the section label and the header chip (ADR-0005). _Avoid_: category |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
 | **terminal trace** | The diagram form: a case-study flow drawn as terminal output in line-drawing characters, typed segments mapped to tokens, `aria-hidden` with `diagramText` as its alternative (ADR-0004). _Avoid_: chart, graph |
 | **accent** | Two senses: the site accent (`--color-accent`, cyan, the sole interactive colour) and a **project hue** — one of `cyan`, `blue`, `green`, `violet`, `orange` in `accents.ts`, card identity only, never on `/architecture` (ADR-0003) |

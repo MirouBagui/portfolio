@@ -10,6 +10,7 @@ interface Figure { value: string; label: string }          // '50k+', 'events/s'
 type DiagramId = 'event-pipeline' | 'cicd-pipeline' | 'strangler-fig';
 interface CaseStudyConfig {
   id: string;
+  tag: 'Performance' | 'Reliability' | 'Architect';         // added by ADR-0005
   title: string;
   problem: string;
   decisions: { term: string; text: string }[];             // term renders as a bold lead
@@ -21,6 +22,8 @@ interface CaseStudyConfig {
 ```
 
 The shape is illustrative. Implementation may rename fields, but the decisions below hold.
+
+> **Amended (#13):** ADR-0005 adds a `tag` field. `id` is the section anchor on `/architecture` and uses the `DiagramId` values. The list order is the page order.
 
 ## Decisions
 
