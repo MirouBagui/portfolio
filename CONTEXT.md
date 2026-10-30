@@ -16,8 +16,9 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **design system** | `DESIGN.md` at repo root — canonical token spec (colours, typography, spacing, motion) |
 | **terminal aesthetic** | The site's visual identity: dark bg `#0a0a0a`, indigo accent `#6366f1`, JetBrains Mono for UI chrome, `$` prompts, `├──` tree notation |
 | **project** | One work-history entry (employer or freelance) in portfolio config, shown as a card under "Projects & Experience". _Avoid_ for case studies |
-| **case study** | One architecture write-up — problem, key decisions, diagram, result. Three exist. _Avoid_: architecture, blueprint, project |
-| **architecture page** | The `/architecture` page that hosts every case study; project cards link into it |
+| **case study** | One architecture write-up — problem, key decisions, diagram, result. Three exist. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
+| **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
+| **canonical figure** | A metric value from `docs/case-studies/source-architecture-portfolio.md`; cards must agree, decorative readouts must not contradict it (ADR-0001) |
 | **accent** | One of `cyan`, `blue`, `green`, `violet`, `orange` — per-project colour variant |
 | **section comment** | `// section-name` heading style used in UI to evoke terminal comments |
 | **server** | `server/` — NestJS app, built with `nest-cli`, serves the built client from `dist/public` |
