@@ -7,6 +7,7 @@ import { ProjectDetail } from "./pages/ProjectDetail";
 import { projectLoader } from "./pages/projectDetailLoader";
 import { Home } from "./pages/Home";
 import { DiagramPrototype } from "./prototype/diagram/DiagramPrototype";
+import { ArchitecturePrototype } from "./prototype/architecture/ArchitecturePrototype";
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +25,10 @@ export const router = createBrowserRouter([
                 loader: blogLoader,
             },
             // PROTOTYPE (#11) — dev only, never on main
-            ...(import.meta.env.DEV ? [{ path: 'prototype/diagram', element: <DiagramPrototype /> }] : []),
+            ...(import.meta.env.DEV ? [
+              { path: 'prototype/diagram', element: <DiagramPrototype /> },
+              { path: 'prototype/architecture', element: <ArchitecturePrototype /> },
+            ] : []),
             { path: '*', element: <NotFound /> },
         ],
     },
