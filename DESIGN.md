@@ -154,7 +154,7 @@ Navbar: the same four links at every width, with no hamburger menu.
 | Requirement | Spec |
 |-------------|------|
 | Contrast | Every text pair meets WCAG AA (4.5:1 body, 3:1 large) against `#050a14`; see the ratios in the Color System. Text below AA must be decorative and `aria-hidden`. Live violations: muted `#64748b`, and the literals `#334155`/`#475569`/`#1e293b` on real labels **→ #17** |
-| Focus-visible | A visible outline on every interactive element: `outline: 2px solid var(--color-accent); outline-offset: 2px` on `:focus-visible`. **Currently no component has any focus style → #17.** The `/architecture` page ships with it. |
+| Focus-visible | A visible outline on every interactive element: `outline: 2px solid var(--color-accent); outline-offset: 2px` on `:focus-visible`. Live: a global `*:focus-visible` rule in `index.css`. Components must not override it. |
 | Touch targets | Minimum 44px for interactive elements |
 | Landmarks | `<nav aria-label="Main navigation">`, `aria-current="page"` on the active nav link, one `<section id>` per home section |
 | Colour as signal | Never the only signal: status colours always come with a text label or glyph |

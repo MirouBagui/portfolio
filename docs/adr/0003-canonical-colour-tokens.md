@@ -19,4 +19,6 @@ The colour tokens in `client/src/index.css` (`@theme`) are the canonical palette
 
 - Until #17 lands, `index.css` and the component colours lag behind the spec. `DESIGN.md` marks each token that isn't live yet with "→ #17".
 - The `/architecture` work (#11, #13, #14) builds against the spec, not the current home page. Muted text there is `#94a3b8` even while the home page still shows `#64748b`.
-- No component has a focus style today, so a keyboard user can't see where focus is. The spec requires a cyan `:focus-visible` outline. The `/architecture` page ships with it, and #17 adds it to the rest of the site.
+- Focus is already compliant: `index.css` has had a global cyan `*:focus-visible` outline since `aa75065`, and no component overrides it. New pages must not override it either.
+
+> **Amended (2026-10-30, #11):** an earlier version of this ADR said no focus style existed. That came from searching components only and missing the global rule in `index.css`. Verified in the browser: Tab gives a 2px solid `#06b6d4` outline.
