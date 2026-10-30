@@ -6,6 +6,7 @@ import { NotFound } from "./pages/NotFound";
 import { ProjectDetail } from "./pages/ProjectDetail";
 import { projectLoader } from "./pages/projectDetailLoader";
 import { Home } from "./pages/Home";
+import { DiagramPrototype } from "./prototype/diagram/DiagramPrototype";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,8 @@ export const router = createBrowserRouter([
                 element: <Blog />,
                 loader: blogLoader,
             },
+            // PROTOTYPE (#11) — dev only, never on main
+            ...(import.meta.env.DEV ? [{ path: 'prototype/diagram', element: <DiagramPrototype /> }] : []),
             { path: '*', element: <NotFound /> },
         ],
     },
