@@ -2,6 +2,8 @@
 
 The three case studies on the architecture page name no employer, and no project card links to them. Visitors reach them only through the nav entry and the home-page teaser. The figures in `docs/case-studies/source-architecture-portfolio.md` are canonical: project cards must agree with them, and every figure on the site has to be one the author can defend in an interview. Decided in #10 (map #8).
 
+> **Amended:** storage was settled in ADR-0002 (#12). The canonical values in the table below now live in the `figures` map in `client/src/portfolio.config.ts`. The source doc is superseded and is no longer the canonical store.
+
 ## Attribution
 
 - **No employer or client name** appears on the architecture page. Each case study gets one line naming the author's **role and scope** (role title only, e.g. "Senior Full Stack Engineer — built ingest to dashboard end to end"). The exact wording belongs to the voice/copy pass.

@@ -10,7 +10,7 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 
 | Term | Meaning |
 |------|---------|
-| **portfolio config** | `client/src/portfolio.config.ts` — single source of truth for all displayed data (projects, skills, socials, meta) |
+| **portfolio config** | `client/src/portfolio.config.ts` — single source of truth for all displayed data (projects, case studies, figures, skills, socials, meta) |
 | **portfolioStore** | `client/src/stores/portfolioStore.ts` — Zustand store that exposes config to all components |
 | **RootLayout** | `client/src/layouts/RootLayout.tsx` — wraps every page; renders Navbar + Outlet + Footer |
 | **design system** | `DESIGN.md` at repo root — canonical token spec (colours, typography, spacing, motion) |
@@ -18,7 +18,8 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **project** | One work-history entry (employer or freelance) in portfolio config, shown as a card under "Projects & Experience". _Avoid_ for case studies |
 | **case study** | One architecture write-up — problem, key decisions, diagram, result. Three exist. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
 | **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
-| **canonical figure** | A metric value from `docs/case-studies/source-architecture-portfolio.md`; cards must agree, decorative readouts must not contradict it (ADR-0001) |
+| **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
+| **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
 | **accent** | One of `cyan`, `blue`, `green`, `violet`, `orange` — per-project colour variant |
 | **section comment** | `// section-name` heading style used in UI to evoke terminal comments |
 | **server** | `server/` — NestJS app, built with `nest-cli`, serves the built client from `dist/public` |

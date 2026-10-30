@@ -1,3 +1,5 @@
+> **Superseded.** This is the original import, kept for history. It is not the build input. Case-study content lives in `client/src/portfolio.config.ts` (ADR-0002), and some values here were dropped (ADR-0001), e.g. 99.99%.
+
 # 📐 Architecture Portfolio
 
 Three architectures that solve three recurring engineering problems: **high-throughput real-time data**, **unreliable release processes**, and **legacy erosion**.
