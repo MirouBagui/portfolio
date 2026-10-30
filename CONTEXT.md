@@ -22,6 +22,7 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **architecture page** | The `/architecture` page that hosts every case study; reached from the nav and the home-page teaser only — no project card links in (ADR-0001) |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
+| **terminal trace** | The diagram form: a case-study flow drawn as terminal output in line-drawing characters, typed segments mapped to tokens, `aria-hidden` with `diagramText` as its alternative (ADR-0004). _Avoid_: chart, graph |
 | **accent** | Two senses: the site accent (`--color-accent`, cyan, the sole interactive colour) and a **project hue** — one of `cyan`, `blue`, `green`, `violet`, `orange` in `accents.ts`, card identity only, never on `/architecture` (ADR-0003) |
 | **section comment** | `// section-name` heading style used in UI to evoke terminal comments |
 | **server** | `server/` — NestJS app, built with `nest-cli`, serves the built client from `dist/public` |

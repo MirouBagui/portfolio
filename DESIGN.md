@@ -40,7 +40,7 @@ Tokens live in `client/src/index.css` under `@theme`, so Tailwind exposes them a
 - **Status colours mean status.** Pass and fail only, always next to a text label (✓/✗, `PASS`/`FAIL`, a path name). Colour is never the only signal, and status colours are never used for links or buttons.
 - **Project hues are identity only.** `components/accents.ts` gives each project card a hue (cyan, blue, green, violet, orange) for its bar, glow and visual. They never mark something as interactive. The `/architecture` page uses **no** project hue, because a hue would match an anonymous case study to its card (ADR-0001).
 - **Every text colour passes WCAG AA** (4.5:1 body, 3:1 large), unless it's decorative and `aria-hidden`.
-- **New code uses tokens only.** No hex or `rgba()` values in components. The existing components hold about 205 colour literals, a legacy that #17 reduces. The `/architecture` page and its diagrams use tokens only. Diagrams rendered by a library read the tokens at runtime (`getComputedStyle`).
+- **New code uses tokens only.** No hex or `rgba()` values in components. The existing components hold about 205 colour literals, a legacy that #17 reduces. The `/architecture` page and its diagrams use tokens only.
 
 ---
 
@@ -109,6 +109,14 @@ A category card with a title, per-skill progress bars (`TelemetryBar`, width ani
 - Prompt pattern: `user@portfolio:$ command`. The user is in `status-pass`, the host in accent, and the separators are muted.
 - Output follows terminal conventions: `✓` lines in `status-pass`, errors in `status-fail`.
 - The hero card carries a decorative 1px accent sweep (`scanline`, 5s, `aria-hidden`).
+
+### Architecture diagram (terminal trace, ADR-0004)
+- Each diagram is terminal output in a terminal card: a `$ <command>` prompt, then the flow, then a closing `✓` status line.
+- **Connectors:** `│ ▼ ├──▶ └──▶ ◀──` in accent.
+- **Segment roles and tokens:** node names in `text-primary`, sub-labels in muted, figures in `accent-hover` (from the `figures` map), and status in `status-pass`/`status-fail` with a `✓`/`✗` label.
+- **Width:** fits 360px, about 40 monospace columns, with no sideways scroll. Shorten long labels or move them to their own line.
+- **Motion:** lines appear once when the diagram scrolls into view, then it stays still; the cursor stops once the trace finishes. With reduced motion, the full trace shows immediately.
+- **Accessibility:** the trace is `aria-hidden`, and `diagramText` is the accessible version.
 
 ---
 
