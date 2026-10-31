@@ -60,7 +60,7 @@ Tokens live in `client/src/index.css` under `@theme`, so Tailwind exposes them a
 - **Space Grotesk** for reading: body, headings, prose.
 - **JetBrains Mono** for the system voice: terminal cards, prompts, labels, readouts, tags, code. Applied via `.font-mono` and `code, kbd, pre, samp`.
 
-**Loading:** both fonts are served by `@fontsource/*` with `font-display: swap`, latin subset. Both are loaded in `index.css`: JetBrains Mono, and Space Grotesk at 400/600/700.
+**Loading:** both fonts are served by `@fontsource/*` with `font-display: swap`, latin subset. Both are loaded in `index.css`: JetBrains Mono, and Space Grotesk at 400/500/600/700. No third-party font requests; the CSP allows fonts from `'self'` only.
 
 ---
 
