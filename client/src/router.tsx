@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
                 element: <Blog />,
                 loader: blogLoader,
             },
+            {
+                path: 'architecture',
+                lazy: async () => ({ Component: (await import('./pages/Architecture')).Architecture }),
+            },
             { path: '*', element: <NotFound /> },
         ],
     },
