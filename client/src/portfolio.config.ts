@@ -26,6 +26,21 @@ export interface SkillCategoryConfig {
   skills: SkillConfig[];
 }
 
+/** Canonical headline figures (ADR-0001). Every stat surface reads from `figures`. */
+export type FigureId =
+  | 'pipelineThroughput'
+  | 'pipelineLatency'
+  | 'pipelineUptime'
+  | 'deployTime'
+  | 'testCoverage'
+  | 'bugReports'
+  | 'sprintAcceptance';
+
+export interface Figure {
+  value: string;
+  label: string;
+}
+
 export interface SocialConfig {
   label: string;
   href: string;
@@ -47,6 +62,7 @@ export interface PortfolioConfig {
   skills: string[];
   skillCategories: SkillCategoryConfig[];
   projects: ProjectConfig[];
+  figures: Record<FigureId, Figure>;
   socials: SocialConfig[];
   aboutParagraphs: string[];
 }
@@ -150,7 +166,7 @@ const config: PortfolioConfig = {
       name: 'Stellantis Motorsport',
       title: 'Senior Full Stack Engineer at Stellantis Motorsport',
       description:
-        'Event orchestration engine powering real-time F1 race strategy. Built end-to-end: ingesting 50k+ concurrent telemetry data points per second through to the live decision dashboard used by race engineers at the pit wall.',
+        'Event orchestration engine powering real-time F1 race strategy. Built end-to-end: ingesting 50k+ telemetry events per second through to the live decision dashboard used by race engineers at the pit wall.',
       role: 'Senior Full Stack Engineer',
       period: '2023–2025',
       accent: 'blue',
@@ -197,6 +213,15 @@ const config: PortfolioConfig = {
       tech: ['NestJS', 'React', 'TypeScript', 'PostgreSQL', 'Docker'],
     },
   ],
+  figures: {
+    pipelineThroughput: { value: '50k+', label: 'events/s' },
+    pipelineLatency: { value: '<50ms', label: 'avg latency' },
+    pipelineUptime: { value: '24/7', label: 'uptime' },
+    deployTime: { value: '−40%', label: 'deploy time' },
+    testCoverage: { value: '80%+', label: 'test coverage' },
+    bugReports: { value: '−30%', label: 'bug reports' },
+    sprintAcceptance: { value: '>95%', label: 'sprint acceptance' },
+  },
   socials: [
     { label: 'GitHub', href: 'https://github.com/MirouBagui' },
     { label: 'LinkedIn', href: 'https://linkedin.com/in/amir-saoudi05' },

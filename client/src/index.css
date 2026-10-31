@@ -8,6 +8,9 @@
   --color-accent: #06b6d4;
   --color-accent-hover: #22d3ee;
   --color-terminal-green: #10b981;
+  /* Status colours mean pass/fail only, always beside a text label (ADR-0003). */
+  --color-status-pass: var(--color-terminal-green);
+  --color-status-fail: #ef4444;
   --color-surface: rgba(10, 16, 28, 0.85);
   --color-border: rgba(6, 182, 212, 0.12);
 }
