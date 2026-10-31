@@ -2,12 +2,10 @@ import { useLoaderData, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import type { Project } from './projectDetailLoader'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { usePortfolioStore } from '../stores/portfolioStore'
 
 export function ProjectDetail() {
   const project = useLoaderData() as Project
-  const { name } = usePortfolioStore()
-  usePageMeta(`${project.title} — ${name}`, project.description)
+  usePageMeta()
 
   return (
     <section className="flex min-h-screen flex-col items-center justify-center px-4 py-24">
