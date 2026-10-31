@@ -77,7 +77,7 @@ Base unit: 4px (Tailwind defaults).
 
 ### Page Structure
 - **Navbar:** fixed, `backdrop-blur-md`, bottom border. It hides on scroll-down and shows on scroll-up (`useScrollDirection`). Links: Home, Skills, Projects (hash links), Architecture, Blog, Services (ADR-0006; Services not built yet). Both the inline row and the phone menu render one shared list. The active link has `aria-current="page"`: hash links match pathname + hash exactly, page links match by pathname (or a sub-path, e.g. `/blog/<slug>`). Below `sm` the links sit behind a `$ menu` toggle (see Responsive).
-- **Home** (`/`) is a single scroll page: Hero (`#home`) → Skills (`#skills`) → Projects (`#projects`) → Architecture teaser (`#architecture`, ADR-0006; not built yet) → Contact (`#contact`) → Footer.
+- **Home** (`/`) is a single scroll page: Hero (`#home`) → Skills (`#skills`) → Projects (`#projects`) → Architecture teaser (`#architecture`, ADR-0006) → Contact (`#contact`) → Footer.
 - **Other routes:** `/projects/:id` (project detail), `/blog` (placeholder), `*` (404).
 - **Background:** `ParticleBackground` is a 2D canvas behind all content, and it renders statically under reduced motion. On pointer-fine devices, `CustomCursor` replaces the native cursor.
 
