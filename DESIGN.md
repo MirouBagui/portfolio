@@ -76,7 +76,7 @@ Base unit: 4px (Tailwind defaults).
 | Card grid gap | `gap-5` (projects), `gap-7` (skills) |
 
 ### Page Structure
-- **Navbar:** fixed, `backdrop-blur-md`, bottom border. It hides on scroll-down and shows on scroll-up (`useScrollDirection`). Links: Home, Skills, Projects (hash links), Architecture, Blog, Services (ADR-0006; Architecture and Services not built yet). The active link has `aria-current="page"`: hash links match pathname + hash exactly, page links match by pathname. Below `sm` the links sit behind a `$ menu` toggle (see Responsive).
+- **Navbar:** fixed, `backdrop-blur-md`, bottom border. It hides on scroll-down and shows on scroll-up (`useScrollDirection`). Links: Home, Skills, Projects (hash links), Architecture, Blog, Services (ADR-0006; Services not built yet). Both the inline row and the phone menu render one shared list. The active link has `aria-current="page"`: hash links match pathname + hash exactly, page links match by pathname (or a sub-path, e.g. `/blog/<slug>`). Below `sm` the links sit behind a `$ menu` toggle (see Responsive).
 - **Home** (`/`) is a single scroll page: Hero (`#home`) → Skills (`#skills`) → Projects (`#projects`) → Architecture teaser (`#architecture`, ADR-0006; not built yet) → Contact (`#contact`) → Footer.
 - **Other routes:** `/projects/:id` (project detail), `/blog` (placeholder), `*` (404).
 - **Background:** `ParticleBackground` is a 2D canvas behind all content, and it renders statically under reduced motion. On pointer-fine devices, `CustomCursor` replaces the native cursor.
@@ -164,7 +164,7 @@ A category card with a title, per-skill progress bars (`TelemetryBar`, width ani
 | `lg` 1024px+ | Two-column hero, featured card splits into two panes, three-column project grid, `px-[72px]` gutter |
 | Beyond | Constrained by `max-w-[1200px]`/`[1320px]`, no scaling past a comfortable reading width |
 
-Navbar (ADR-0006): from `sm` up every link is inline. Below `sm` they sit behind a mono `$ menu` toggle (`aria-expanded`, `aria-controls`) that opens a full-width list with rows at least 44px tall. The list closes on navigation, on Escape (focus returns to the toggle), and when the viewport grows past `sm`. Live: four inline links at every width, no toggle (they only just fit at 360px; a fifth link overflows).
+Navbar (ADR-0006): from `sm` up every link is inline. Below `sm` they sit behind a mono `$ menu` toggle (`aria-expanded`, `aria-controls`) that opens a full-width list with rows at least 44px tall. The list closes on navigation, on Escape (focus returns to the toggle), and when the viewport grows past `sm`.
 
 ---
 
