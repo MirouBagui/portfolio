@@ -1,15 +1,19 @@
 @import 'tailwindcss';
 @import '@fontsource/jetbrains-mono/latin.css';
+@import '@fontsource/space-grotesk/latin-400.css';
+@import '@fontsource/space-grotesk/latin-600.css';
+@import '@fontsource/space-grotesk/latin-700.css';
 
 @theme {
   --color-bg-primary: #050a14;
   --color-text-primary: #e2e8f0;
-  --color-text-muted: #64748b;
+  --color-text-muted: #94a3b8;
+  /* Decorative text only, and only inside aria-hidden="true" (2.61:1, ADR-0003). */
+  --color-text-faint: #475569;
   --color-accent: #06b6d4;
   --color-accent-hover: #22d3ee;
-  --color-terminal-green: #10b981;
   /* Status colours mean pass/fail only, always beside a text label (ADR-0003). */
-  --color-status-pass: var(--color-terminal-green);
+  --color-status-pass: #10b981;
   --color-status-fail: #ef4444;
   --color-surface: rgba(10, 16, 28, 0.85);
   --color-border: rgba(6, 182, 212, 0.12);

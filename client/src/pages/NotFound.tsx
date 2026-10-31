@@ -9,12 +9,12 @@ export function NotFound() {
         <p className="mb-2 text-6xl font-bold text-[var(--color-accent)]">404</p>
         <p className="mb-2 text-sm text-white/60">
           <span className="text-green-400">visitor</span>
-          <span className="text-white/40">@</span>
+          <span className="text-text-muted">@</span>
           <span className="text-[var(--color-accent)]">portfolio</span>
-          <span className="text-white/40">:$ </span>
+          <span className="text-text-muted">:$ </span>
           <span>cat /dev/null</span>
         </p>
-        <p className="mb-8 text-sm text-red-400/60" role="alert">
+        <p className="mb-8 text-sm text-status-fail" role="alert">
           cat: /dev/null: No such file
         </p>
         <Link

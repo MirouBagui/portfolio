@@ -16,7 +16,7 @@ export function Contact() {
           <br />
           <span className="text-[var(--color-accent)]">unshakeable.</span>
         </h2>
-        <p className="mx-auto mb-12 max-w-[460px] text-base leading-[1.75] text-[#475569]">
+        <p className="mx-auto mb-12 max-w-[460px] text-base leading-[1.75] text-text-muted">
           Open to senior full-stack and real-time systems roles. Let's talk architecture, scale, and speed.
         </p>
         <div className="flex flex-wrap justify-center gap-3.5">
