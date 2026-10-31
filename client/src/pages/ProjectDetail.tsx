@@ -32,7 +32,7 @@ export function ProjectDetail() {
 
         {project.tech && project.tech.length > 0 && (
           <div>
-            <p className="mb-3 text-sm font-medium text-white/40">Tech Stack</p>
+            <p className="mb-3 text-sm font-medium text-text-muted">Tech Stack</p>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((t) => (
                 <span

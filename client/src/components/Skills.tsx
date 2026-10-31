@@ -15,6 +15,7 @@ function SkillCard({ cat, delay }: { cat: SkillCategoryConfig; delay: number }) 
     >
       <div className="mb-7 flex items-center gap-3">
         <div
+          aria-hidden="true"
           className="flex h-9 w-9 items-center justify-center rounded-[10px] text-base"
           style={{ background: rgba(cat.accent, 0.1), border: `1px solid ${rgba(cat.accent, 0.2)}`, color: a.barTo }}
         >
@@ -22,7 +23,7 @@ function SkillCard({ cat, delay }: { cat: SkillCategoryConfig; delay: number }) 
         </div>
         <div>
           <p className="text-[15px] font-semibold">{cat.title}</p>
-          <p className="mt-px font-mono text-[11px] text-[#334155]">{cat.subtitle}</p>
+          <p className="mt-px font-mono text-[11px] text-text-muted">{cat.subtitle}</p>
         </div>
       </div>
 
@@ -56,7 +57,7 @@ export function Skills() {
         <div className="mb-[72px] text-center">
           <p className="mb-3.5 font-mono text-xs tracking-[2.5px] text-[var(--color-accent)]">// EXPERTISE</p>
           <h2 className="text-[clamp(34px,3.5vw,52px)] font-bold tracking-[-1.5px]">Technical Stack</h2>
-          <p className="mx-auto mt-3.5 max-w-[520px] text-base leading-relaxed text-[#475569]">
+          <p className="mx-auto mt-3.5 max-w-[520px] text-base leading-relaxed text-text-muted">
             Full-stack expertise across the entire lifecycle — from architecture to production.
           </p>
         </div>

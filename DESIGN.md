@@ -1,6 +1,6 @@
 # Design System — Amir SAOUDI Portfolio
 
-> Describes the site as rebuilt in July 2026 (`aa75065`). Colour and type are canonical per [ADR-0003](docs/adr/0003-canonical-colour-tokens.md). Anything the live code doesn't do yet is marked **→ #17**.
+> Describes the site as rebuilt in July 2026 (`aa75065`). Colour and type are canonical per [ADR-0003](docs/adr/0003-canonical-colour-tokens.md). Colour tokens, text contrast and fonts are live since #17.
 
 ## Memorable Thing
 
@@ -28,19 +28,19 @@ Tokens live in `client/src/index.css` under `@theme`, so Tailwind exposes them a
 | `--color-surface` | `rgba(10,16,28,0.85)` | — | Card and pane surfaces |
 | `--color-border` | `rgba(6,182,212,0.12)` | — | Card edges, dividers |
 | `--color-text-primary` | `#e2e8f0` | 16.07:1 | Body text, headings |
-| `--color-text-muted` | `#94a3b8` **→ #17** (live: `#64748b`, 4.16:1) | 7.73:1 | Secondary text, captions, tags, metadata |
-| `--color-text-faint` | `#475569` **→ #17** | 2.61:1 | **Only** text marked `aria-hidden="true"`, i.e. decorative readouts. Never content. |
+| `--color-text-muted` | `#94a3b8` | 7.73:1 | Secondary text, captions, tags, metadata |
+| `--color-text-faint` | `#475569` | 2.61:1 | **Only** text marked `aria-hidden="true"`, i.e. decorative readouts. Never content. |
 | `--color-accent` | `#06b6d4` (cyan) | 8.16:1 | Links, focus, buttons, section labels |
 | `--color-accent-hover` | `#22d3ee` | 10.96:1 | Hover state of accent elements |
-| `--color-status-pass` | `#10b981` **→ #17** (live as `--color-terminal-green`) | 7.81:1 | Pass / healthy / available |
-| `--color-status-fail` | `#ef4444` **→ #17** | 5.26:1 | Fail / rollback / error |
+| `--color-status-pass` | `#10b981` | 7.81:1 | Pass / healthy / available |
+| `--color-status-fail` | `#ef4444` | 5.26:1 | Fail / rollback / error |
 
 **Rules**
 - **Cyan is the only interactive accent.** Anything clickable or focusable uses it, and nothing else does.
 - **Status colours mean status.** Pass and fail only, always next to a text label (✓/✗, `PASS`/`FAIL`, a path name). Colour is never the only signal, and status colours are never used for links or buttons.
 - **Project hues are identity only.** `components/accents.ts` gives each project card a hue (cyan, blue, green, violet, orange) for its bar, glow and visual. They never mark something as interactive. The `/architecture` page uses **no** project hue, because a hue would match an anonymous case study to its card (ADR-0001).
 - **Every text colour passes WCAG AA** (4.5:1 body, 3:1 large), unless it's decorative and `aria-hidden`.
-- **New code uses tokens only.** No hex or `rgba()` values in components. The existing components hold about 205 colour literals, a legacy that #17 reduces. The `/architecture` page and its diagrams use tokens only.
+- **New code uses tokens only.** No hex or `rgba()` values in components. The existing components still hold about 160 colour literals, mostly project hues and decorative visuals; grey text literals were replaced by tokens in #17. The `/architecture` page and its diagrams use tokens only.
 
 ---
 
@@ -60,7 +60,7 @@ Tokens live in `client/src/index.css` under `@theme`, so Tailwind exposes them a
 - **Space Grotesk** for reading: body, headings, prose.
 - **JetBrains Mono** for the system voice: terminal cards, prompts, labels, readouts, tags, code. Applied via `.font-mono` and `code, kbd, pre, samp`.
 
-**Loading:** both fonts are served by `@fontsource/*` with `font-display: swap`, latin subset. JetBrains Mono is loaded. Space Grotesk is declared but not yet loaded, so it currently falls back to the system font **→ #17**.
+**Loading:** both fonts are served by `@fontsource/*` with `font-display: swap`, latin subset. Both are loaded in `index.css`: JetBrains Mono, and Space Grotesk at 400/600/700.
 
 ---
 
@@ -172,7 +172,7 @@ Navbar (ADR-0006): from `sm` up every link is inline. Below `sm` they sit behind
 
 | Requirement | Spec |
 |-------------|------|
-| Contrast | Every text pair meets WCAG AA (4.5:1 body, 3:1 large) against `#050a14`; see the ratios in the Color System. Text below AA must be decorative and `aria-hidden`. Live violations: muted `#64748b`, and the literals `#334155`/`#475569`/`#1e293b` on real labels **→ #17** |
+| Contrast | Every text pair meets WCAG AA (4.5:1 body, 3:1 large) against `#050a14`; see the ratios in the Color System. Text below AA must be decorative and `aria-hidden`. Decorative readouts (telemetry panel, card visuals, hero cursor) use `--color-text-faint` inside `aria-hidden="true"`. |
 | Focus-visible | A visible outline on every interactive element: `outline: 2px solid var(--color-accent); outline-offset: 2px` on `:focus-visible`. Live: a global `*:focus-visible` rule in `index.css`. Components must not override it. |
 | Touch targets | Minimum 44px for interactive elements |
 | Landmarks | `<nav aria-label="Main navigation">`, `aria-current="page"` on the active nav link, one `<section id>` per home section |

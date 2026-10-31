@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <p className="mb-2 text-sm font-medium text-red-400">
                 Something went wrong
               </p>
-              <p className="text-xs text-white/40">
+              <p className="text-xs text-text-muted">
                 {this.state.error?.message ?? 'Unknown error'}
               </p>
             </div>

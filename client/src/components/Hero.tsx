@@ -53,17 +53,17 @@ function TerminalCard({ firstName, role }: { firstName: string; role: string; })
           <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
           <span className="h-3 w-3 rounded-full bg-[#28c941]" />
         </div>
-        <span className="flex-1 text-center font-mono text-xs text-[#334155]">portfolio@dev — zsh</span>
+        <span className="flex-1 text-center font-mono text-xs text-text-muted">portfolio@dev — zsh</span>
       </div>
       <div className="px-7 py-6 font-mono text-[13px] leading-[1.85]">
-        <p className="text-[#334155]">SYSTEM INITIALIZING...</p>
-        <p className="text-[#334155]">OS: PortfolioOS v2.0.0</p>
-        <p className="mb-5 text-[#334155]">KERNEL: React + TypeScript · build 2026</p>
+        <p className="text-text-muted">SYSTEM INITIALIZING...</p>
+        <p className="text-text-muted">OS: PortfolioOS v2.0.0</p>
+        <p className="mb-5 text-text-muted">KERNEL: React + TypeScript · build 2026</p>
         <p>
           <span className="text-[#22d3ee]">visitor</span>
-          <span className="text-[#334155]">@</span>
-          <span className="text-[#818cf8]">portfolio</span>
-          <span className="text-[#334155]"> : ~ $ </span>
+          <span className="text-text-muted">@</span>
+          <span className="text-accent">portfolio</span>
+          <span className="text-text-muted"> : ~ $ </span>
           <span className="text-[#e2e8f0]">about --whoami</span>
         </p>
         <div className="mt-3.5 border-l-2 border-[rgba(6,182,212,.35)] pl-3.5">
@@ -71,16 +71,16 @@ function TerminalCard({ firstName, role }: { firstName: string; role: string; })
           <p className="mt-1.5 text-[13px] text-[#7dd3fc]">
             &gt; Role: <span className="text-[#f8fafc]">{role}</span>
           </p>
-          <p className="mt-3 font-sans text-xs leading-relaxed text-[#475569]">
+          <p className="mt-3 font-sans text-xs leading-relaxed text-text-muted">
             Real-time systems · motorsport strategy · video platforms
           </p>
         </div>
         <p className="mt-[18px]">
           <span className="text-[#22d3ee]">visitor</span>
-          <span className="text-[#334155]">@</span>
-          <span className="text-[#818cf8]">portfolio</span>
-          <span className="text-[#334155]"> : ~ $ </span>
-          <span className="cursor-blink text-[#334155]">_</span>
+          <span className="text-text-muted">@</span>
+          <span className="text-accent">portfolio</span>
+          <span className="text-text-muted"> : ~ $ </span>
+          <span aria-hidden="true" className="cursor-blink text-text-faint">_</span>
         </p>
       </div>
     </div>
@@ -106,7 +106,7 @@ export function Hero() {
           </div>
 
           <div className="mb-[18px]">
-            <p className="mb-3.5 font-mono text-[11px] tracking-[2.5px] text-[#334155]">{specialisation}</p>
+            <p className="mb-3.5 font-mono text-[11px] tracking-[2.5px] text-text-muted">{specialisation}</p>
             <h1 className="text-[clamp(38px,3.2vw,52px)] font-bold leading-[1.05] tracking-[-2.5px]">
               {headlineLines.map((line, i) => (
                 <span key={i}>
@@ -123,7 +123,7 @@ export function Hero() {
             <span className="cursor-blink ml-0.5 text-lg text-[var(--color-accent)]">█</span>
           </div>
 
-          <p className="mb-11 max-w-[420px] text-base leading-[1.75] text-[var(--color-text-muted)]">
+          <p className="mb-11 max-w-[420px] text-base leading-[1.75] text-text-muted">
             {tagline}
           </p>
 
@@ -154,7 +154,7 @@ export function Hero() {
         aria-hidden
         className="absolute bottom-9 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 opacity-35"
       >
-        <span className="font-mono text-[10px] tracking-[2px] text-[#475569]">SCROLL</span>
+        <span className="font-mono text-[10px] tracking-[2px] text-text-faint">SCROLL</span>
         <div className="h-10 w-px bg-gradient-to-b from-[rgba(6,182,212,.7)] to-transparent" />
       </div>
     </section>
