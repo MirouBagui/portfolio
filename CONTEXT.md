@@ -21,6 +21,8 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **case study** | One architecture write-up — problem, key decisions, diagram, result; shown result-first on the page (ADR-0005). Three exist, ordered pipeline → CI/CD → migration. Anonymous: names a role, never an employer or domain (ADR-0001). _Avoid_: architecture, blueprint, project |
 | **architecture page** | The `/architecture` page that hosts every case study; reached from the nav (`Architecture`, after Projects) and the home-page teaser only — no project card links in (ADR-0001, ADR-0006) |
 | **architecture teaser** | The home-page section `#architecture` between Projects and Contact: one row per case study (`NN // TAG`, title, lead figure) linking to `/architecture#<id>`; no diagram (ADR-0006). _Avoid_: banner, preview |
+| **role line** | One sentence per case study: the title the author actually held, then what he owned, in first person (e.g. "Backend Developer — I designed the pipeline and rolled it out"). No employer (ADR-0001, ADR-0007) |
+| **result note** | The sentence under a case study's figures, stating what was measured, never an absolute ("No message loss in peak-load tests") (ADR-0007) |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
 | **case-study tag** | The one-word focus of a case study: Performance, Reliability or Architect. Used as the section label and the header chip (ADR-0005). _Avoid_: category |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
