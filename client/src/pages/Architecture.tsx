@@ -50,11 +50,9 @@ function CaseStudySection({ cs, index }: { cs: CaseStudyConfig; index: number })
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,460px)_1fr] lg:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">
-            {Diagram && (
-              <Suspense fallback={null}>
-                <Diagram />
-              </Suspense>
-            )}
+            <Suspense fallback={null}>
+              <Diagram />
+            </Suspense>
             <details className="mt-3 font-mono text-xs text-text-muted">
               <summary className="cursor-pointer text-accent">$ cat diagram.txt</summary>
               <p className="mt-2 font-sans text-sm leading-relaxed">{cs.diagramText}</p>
