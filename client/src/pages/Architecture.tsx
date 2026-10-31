@@ -78,8 +78,8 @@ function CaseStudySection({ cs, index }: { cs: CaseStudyConfig; index: number })
 }
 
 export function Architecture() {
-  const { name, caseStudies, architecturePage: page } = usePortfolioStore();
-  usePageMeta(`Architecture — ${name}`, page.intro);
+  const { caseStudies, architecturePage: page } = usePortfolioStore();
+  usePageMeta();
 
   return (
     <main className="pb-24 pt-32">
