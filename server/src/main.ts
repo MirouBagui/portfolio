@@ -6,19 +6,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Security headers. CSP is tuned to the SPA: self-hosted scripts, inline
-  // styles (the UI uses many inline style attributes), and Google Fonts.
+  // styles (the UI uses many inline style attributes). Fonts are self-hosted.
   app.use(
     helmet({
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
           scriptSrc: ["'self'"],
-          styleSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            'https://fonts.googleapis.com',
-          ],
-          fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          fontSrc: ["'self'", 'data:'],
           imgSrc: ["'self'", 'data:'],
           connectSrc: ["'self'"],
           objectSrc: ["'none'"],

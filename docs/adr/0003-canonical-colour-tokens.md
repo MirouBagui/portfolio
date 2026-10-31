@@ -20,6 +20,8 @@ The colour tokens in `client/src/index.css` (`@theme`) are the canonical palette
 - Until #17 lands, `index.css` and the component colours lag behind the spec. `DESIGN.md` marks each token that isn't live yet with "→ #17".
 
   *Amended (#17): landed. `index.css` holds the spec tokens (`--color-terminal-green` is gone; `--color-status-pass` is `#10b981` directly), Space Grotesk is loaded, grey text literals are tokens, and the "→ #17" markers are removed from `DESIGN.md`. The unused three.js / react-three packages went out with `@fontsource/inter`.*
+
+  *Amended (#42): "never loaded" was wrong. `client/index.html` loaded Space Grotesk from Google Fonts all along; #17 missed it because only CSS and components were searched. The Google link is removed, the font is self-hosted only (400/500/600/700, since `font-medium` is used), and the CSP no longer allows Google hosts.*
 - The `/architecture` work (#11, #13, #14) builds against the spec, not the current home page. Muted text there is `#94a3b8` even while the home page still shows `#64748b`.
 - Focus is already compliant: `index.css` has had a global cyan `*:focus-visible` outline since `aa75065`, and no component overrides it. New pages must not override it either.
 
