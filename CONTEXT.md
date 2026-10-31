@@ -23,6 +23,8 @@ Personal developer portfolio for **Amir SAOUDI** — Full Stack Engineer. A Reac
 | **architecture teaser** | The home-page section `#architecture` between Projects and Contact: one row per case study (`NN // TAG`, title, lead figure) linking to `/architecture#<id>`; no diagram (ADR-0006). _Avoid_: banner, preview |
 | **role line** | One sentence per case study: the title the author actually held, then what he owned, in first person (e.g. "Backend Developer — I designed the pipeline and rolled it out"). No employer (ADR-0001, ADR-0007) |
 | **result note** | The sentence under a case study's figures, stating what was measured, never an absolute ("No message loss in peak-load tests") (ADR-0007) |
+| **route meta** | The per-route title, description and path, written once in the client; the client build emits it as `route-meta.json`, which the server uses to fill in each route's head for link-preview bots (ADR-0008) |
+| **SITE_URL** | Server env var holding the site's origin; absolute-URL tags, the sitemap and the sitemap line in robots.txt appear only when it is set (ADR-0008) |
 | **canonical figure** | An entry in the `figures` map in portfolio config, read by key from both case studies and card stats; a card may override the label, never the value; decorative readouts must not contradict it (ADR-0001, ADR-0002) |
 | **case-study tag** | The one-word focus of a case study: Performance, Reliability or Architect. Used as the section label and the header chip (ADR-0005). _Avoid_: category |
 | **diagram registry** | Maps a case study's `DiagramId` to a lazy-loaded diagram component (ADR-0002) |
