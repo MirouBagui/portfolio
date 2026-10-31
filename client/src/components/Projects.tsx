@@ -1,6 +1,7 @@
 import { usePortfolioStore } from '../stores/portfolioStore';
 import { useReveal, revealClass } from '../hooks/useReveal';
 import type { Project } from '../stores/portfolioStore';
+import type { FigureId } from '../portfolio.config';
 import type { ReactNode } from 'react';
 
 const TAG = 'rounded border border-white/5 bg-white/[4%] px-2 py-[3px] font-mono text-[10px] text-[#475569]';
@@ -61,7 +62,19 @@ function StatBox({ label, value }: { label: string; value: string }) {
   );
 }
 
+// A card may override a figure's label, never its value (ADR-0002).
+const FEATURED_STATS: { id: FigureId; label?: string }[] = [
+  { id: 'pipelineThroughput' },
+  { id: 'pipelineLatency' },
+  { id: 'pipelineUptime', label: 'RACE UPTIME' },
+];
+
 function FeaturedCard({ p }: { p: Project }) {
+  const figures = usePortfolioStore((s) => s.figures);
+  const stats = FEATURED_STATS.map(({ id, label }) => ({
+    v: figures[id].value,
+    l: label ?? figures[id].label.toUpperCase(),
+  }));
   const [ref, shown] = useReveal<HTMLDivElement>(0);
 
   return (
@@ -91,11 +104,7 @@ function FeaturedCard({ p }: { p: Project }) {
           <p className="mb-8 max-w-[420px] text-sm leading-[1.75] text-[var(--color-text-muted)]">{p.description}</p>
 
           <div className="mb-8 flex gap-6">
-            {[
-              { v: '50k+', l: 'DATA POINTS/S' },
-              { v: '<50ms', l: 'LATENCY' },
-              { v: '24/7', l: 'RACE UPTIME' },
-            ].map((s, i) => (
+            {stats.map((s, i) => (
               <div key={s.l} className="flex gap-6">
                 {i > 0 && <div className="w-px bg-white/[6%]" />}
                 <div>
@@ -264,6 +273,7 @@ function KnowledgeExpertVisual() {
 }
 
 function EDFVisual() {
+  const deploy = usePortfolioStore((s) => s.figures.deployTime);
   const stage = (label: string, color: string) => (
     <div className="flex-1 rounded-md border border-[rgba(249,115,22,.18)] bg-[rgba(249,115,22,.07)] px-1 py-[7px] text-center">
       <p className="font-mono text-[9px]" style={{ color }}>{label}</p>
@@ -272,8 +282,8 @@ function EDFVisual() {
   return (
     <div className="relative flex h-full flex-col justify-center gap-3.5 overflow-hidden p-[18px]">
       <div className="absolute right-3 top-[11px] flex items-center gap-1.5 rounded-full border border-[rgba(249,115,22,.28)] bg-[rgba(249,115,22,.1)] px-2.5 py-[3px]">
-        <span className="font-mono text-xs font-bold text-[#fb923c]">−40%</span>
-        <span className="font-mono text-[9px] text-[#475569]">deploy time</span>
+        <span className="font-mono text-xs font-bold text-[#fb923c]">{deploy.value}</span>
+        <span className="font-mono text-[9px] text-[#475569]">{deploy.label}</span>
       </div>
       <div className="flex w-full items-center">
         {stage('SOURCE', '#475569')}
@@ -288,7 +298,7 @@ function EDFVisual() {
       </div>
       <div className="pl-0.5 font-mono text-[9px] leading-[1.9] text-[#1e293b]">
         <p>&gt; pipeline #2847 triggered on merge</p>
-        <p>&gt; tests: <span className="text-[#6ee7b7]">passed</span> · coverage: <span className="text-[#6ee7b7]">94%</span></p>
+        <p>&gt; tests: <span className="text-[#6ee7b7]">passed</span> · coverage: <span className="text-[#6ee7b7]">82%</span></p>
         <p>&gt; deployed to <span className="text-[#fb923c]">prod</span> in <span className="text-[#fb923c]">4m 12s</span></p>
       </div>
     </div>

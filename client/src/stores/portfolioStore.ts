@@ -1,7 +1,7 @@
 import { Code, Globe, Mail } from 'lucide-react';
 import { create } from 'zustand';
 import config from '../portfolio.config';
-import type { Accent, SkillCategoryConfig } from '../portfolio.config';
+import type { Accent, Figure, FigureId, SkillCategoryConfig } from '../portfolio.config';
 
 // Icon derived from the href, not the display label, so config renames
 // can't silently swap icons.
@@ -31,6 +31,7 @@ export interface PortfolioState {
   roles: string[];
   skillCategories: SkillCategoryConfig[];
   projects: Project[];
+  figures: Record<FigureId, Figure>;
   socials: { label: string; href: string; icon: React.ComponentType<{ size?: number; }>; }[];
   config: typeof config;
 }
@@ -44,6 +45,7 @@ export const usePortfolioStore = create<PortfolioState>(() => ({
   roles: config.meta.roles,
   skillCategories: config.skillCategories,
   projects: config.projects.map((p) => ({ ...p })),
+  figures: config.figures,
   socials: config.socials.map((s) => ({
     ...s,
     icon: iconFor(s.href),
