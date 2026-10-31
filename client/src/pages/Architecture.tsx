@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import type { ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
 import type { CaseStudyConfig } from '../portfolio.config';
 import { usePortfolioStore } from '../stores/portfolioStore';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { diagrams } from '../diagrams/registry';
 
 // Results-first layout (ADR-0005). Copy comes from config (ADR-0007); figures from the map (ADR-0002).
 
@@ -27,6 +28,7 @@ function ResultFigures({ cs }: { cs: CaseStudyConfig }) {
 }
 
 function CaseStudySection({ cs, index }: { cs: CaseStudyConfig; index: number }) {
+  const Diagram = diagrams[cs.diagram];
   return (
     <article id={cs.id} aria-labelledby={`${cs.id}-title`} className="scroll-mt-20 border-t border-border py-20">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-12 lg:px-[72px]">
@@ -48,7 +50,11 @@ function CaseStudySection({ cs, index }: { cs: CaseStudyConfig; index: number })
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,460px)_1fr] lg:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">
-            {/* Diagram slot: the terminal trace for cs.diagram mounts here (#23). */}
+            {Diagram && (
+              <Suspense fallback={null}>
+                <Diagram />
+              </Suspense>
+            )}
             <details className="mt-3 font-mono text-xs text-text-muted">
               <summary className="cursor-pointer text-accent">$ cat diagram.txt</summary>
               <p className="mt-2 font-sans text-sm leading-relaxed">{cs.diagramText}</p>
